@@ -76,11 +76,9 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- 212Hz 파형 + 톤 ---------- */
+  /* ---------- 장식 파형 ---------- */
   const waveCanvas = $("tone-wave");
-  const toneBtn = $("tone-btn");
-  let amp = 0.35;          // 현재 진폭 (0~1)
-  let ampTarget = 0.35;    // 목표 진폭
+  const amp = 0.5;         // 장식용 파형 진폭
   if (waveCanvas) {
     const wctx = waveCanvas.getContext("2d");
     let ww = 0, wh = 0, phase = 0, visible = true;
@@ -92,7 +90,6 @@
     };
     const drawWave = () => {
       if (visible) {
-        amp += (ampTarget - amp) * 0.05;
         phase += 0.035 + amp * 0.05;
         wctx.clearRect(0, 0, ww, wh);
         const mid = wh / 2;
@@ -123,50 +120,7 @@
     }
     sizeWave();
     window.addEventListener("resize", sizeWave);
-    if (reduce) { amp = ampTarget = 0.35; }
     requestAnimationFrame(drawWave);
-  }
-
-  if (toneBtn) {
-    let actx = null, playing = null;
-    const label = toneBtn.querySelector(".tone__label");
-    const stop = () => {
-      if (!playing) return;
-      const { gain, oscs } = playing;
-      const t = actx.currentTime;
-      gain.gain.cancelScheduledValues(t);
-      gain.gain.setValueAtTime(gain.gain.value, t);
-      gain.gain.linearRampToValueAtTime(0, t + 1.2);
-      oscs.forEach((o) => o.stop(t + 1.3));
-      playing = null;
-      ampTarget = 0.35;
-      toneBtn.setAttribute("aria-pressed", "false");
-      label.textContent = "212Hz 들어보기";
-    };
-    toneBtn.addEventListener("click", async () => {
-      if (playing) { stop(); return; }
-      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-      if (actx.state === "suspended") await actx.resume();
-      const t = actx.currentTime;
-      const gain = actx.createGain();
-      gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.16, t + 1.4);  // 부드럽게 시작
-      gain.connect(actx.destination);
-      // 기음 212Hz + 은은한 배음
-      const oscs = [[212, 1], [424, 0.18], [636, 0.06]].map(([f, g]) => {
-        const o = actx.createOscillator();
-        const og = actx.createGain();
-        o.type = "sine"; o.frequency.value = f; og.gain.value = g;
-        o.connect(og).connect(gain); o.start(t);
-        return o;
-      });
-      playing = { gain, oscs };
-      ampTarget = 1;
-      toneBtn.setAttribute("aria-pressed", "true");
-      label.textContent = "212Hz 울리는 중";
-      const mine = playing;
-      setTimeout(() => { if (playing === mine) stop(); }, 6000);
-    });
   }
 
   /* ---------- 달력 (2026년 12월) ---------- */
