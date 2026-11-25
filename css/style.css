@@ -547,11 +547,74 @@ strong { font-weight: 600; }
   text-transform: uppercase;
   color: var(--silver-dim);
 }
+.composer__now {
+  margin: 26px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.9;
+  color: var(--gold-soft);
+}
+.composer__now span { margin: 0 0.5em; color: var(--slate-300); }
 .composer__lead {
-  margin: 36px 0 0;
-  font-size: 1rem;
+  position: relative;
+  margin: 34px 0 0;
+  padding: 26px 8px 0;
+  font-size: 0.98rem;
   line-height: 2;
+  color: var(--silver);
+}
+.composer__lead::before {
+  /* 큰 따옴표 장식 */
+  content: "\201C";
+  position: absolute;
+  top: -18px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--serif-en);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.55;
+}
+.composer__lead p { margin: 0; }
+
+/* 작곡가 약력 */
+.cv {
+  margin: 38px 0 0;
+  padding: 24px 20px 10px;
+  text-align: left;
+  border-top: 1px solid rgba(227, 187, 130, 0.3);
+  border-bottom: 1px solid rgba(227, 187, 130, 0.3);
+  background: linear-gradient(180deg, rgba(227, 187, 130, 0.05), transparent 60%);
+}
+.cv__label {
+  margin: 0 0 8px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--gold-soft);
+}
+.cv__list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 0.86rem;
+  line-height: 1.7;
   color: var(--silver-dim);
+}
+.cv__list li {
+  position: relative;
+  padding: 4px 0 4px 14px;
+}
+.cv__list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 1.05em;
+  width: 5px; height: 1px;
+  background: var(--gold);
+}
+.cv__list em {
+  font-family: var(--serif-en);
+  font-size: 1.05em;
+  color: var(--silver);
 }
 
 /* =========================================================
