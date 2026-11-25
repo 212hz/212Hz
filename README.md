@@ -19,7 +19,7 @@ images/             원본 이미지
 
 ## 배포 (자동 업데이트)
 
-- 주소: https://211hz.github.io/211Hz/
+- 주소: https://212hz.github.io/212Hz/
 - `main` 브랜치에 push 하면 GitHub Actions(`.github/workflows/deploy.yml`)가 자동으로 Pages에 배포합니다 (1~2분 소요).
 - 최초 1회: 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 설정.
 - 수동 재배포: Actions 탭 → *Deploy invitation to GitHub Pages* → **Run workflow**.
