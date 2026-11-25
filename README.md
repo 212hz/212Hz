@@ -36,9 +36,10 @@ images/                     원본 이미지 (배포되지 않음)
 
 ## 자주 하는 수정
 
-- **연주자 추가**: 같은 편성 안의 `<details class="pcard"> … </details>` 블록 하나를 복사해 이름·악기·약력만 바꿉니다.
-  아이콘은 `<use href="#i-violin" />` 의 값으로 고릅니다: `i-violin`, `i-cello`, `i-piano`, `i-trumpet`, `i-voice`.
-  새 편성이 필요하면 `<div class="ens"> … </div>` 블록을 통째로 복사합니다. 4명 편성은 `ens__grid--4` 클래스를 붙이면 2×2로 배치됩니다.
+- **연주자 추가**: 편성 한 줄이 `<details class="crew__row"> … </details>` 하나입니다.
+  같은 편성에 사람을 추가하려면 ① `summary` 안의 `<span class="m"><b>이름</b><i>악기</i></span>` 한 줄,
+  ② 아래 `crew__bio` 안의 `<div><p class="who">…</p><p>약력 · 약력</p></div>` 한 줄을 복사해 고칩니다.
+  새 편성은 `<details class="crew__row">` 블록을 통째로 복사합니다.
 - **곡 추가/수정**: `<li class="pg"> … </li>` 블록 하나가 한 곡입니다. 시각예술 협업 곡은 `is-feature` 클래스와 `tag`를 붙입니다.
 - **포스터 교체**: 새 이미지를 `assets/img/`에 **새 파일명**으로 넣고, `index.html`의 `hero__poster` src 와 `og:image` 두 곳을 바꿉니다.
   (같은 파일명으로 덮어쓰면 휴대폰·카카오톡 캐시 때문에 옛 포스터가 보일 수 있습니다.)

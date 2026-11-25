@@ -332,208 +332,85 @@
     </section>
 
     <!-- 9-2. 연주자 -->
+    <!-- 편성 1줄 = <details class="crew__row"> 1개.
+         연주자 추가: summary 안 <span class="m"> 1개 + 아래 crew__bio 안 <div> 1개를 복사해 이름·악기·약력만 수정 -->
     <section class="section performers reveal" aria-labelledby="performers-title">
       <h2 id="performers-title" class="sec-title"><span>Performers</span>연주자</h2>
 
-      <!-- 악기 아이콘 (선 드로잉) -->
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs>
-          <symbol id="i-violin" viewBox="0 0 48 48">
-            <path d="M24 18c-4 0-6 2-6 4.5 0 1.6 1 2.6 1 3.5s-2 1.8-2 5c0 4 3.2 6.5 7 6.5s7-2.5 7-6.5c0-3.2-2-4.1-2-5s1-1.9 1-3.5C30 20 28 18 24 18z" />
-            <path d="M24 18V7" /><circle cx="24" cy="5.2" r="1.6" />
-            <path d="M22.9 9v25M25.1 9v25" stroke-width=".6" />
-            <path d="M20.6 27.6c.8 1 .8 2.4 0 3.4M27.4 27.6c-.8 1-.8 2.4 0 3.4" />
-            <path d="M21.6 30.8h4.8" />
-          </symbol>
-          <symbol id="i-cello" viewBox="0 0 48 48">
-            <path d="M24 15c-5 0-7.5 2.4-7.5 5.4 0 1.9 1.2 3.1 1.2 4.2s-2.4 2.2-2.4 6c0 4.8 3.9 7.8 8.7 7.8s8.7-3 8.7-7.8c0-3.8-2.4-4.9-2.4-6s1.2-2.3 1.2-4.2C31.5 17.4 29 15 24 15z" />
-            <path d="M24 15V5" /><circle cx="24" cy="3.6" r="1.4" />
-            <path d="M24 38.4V45" />
-            <path d="M22.8 7v28M25.2 7v28" stroke-width=".6" />
-            <path d="M19.8 27c1 1.2 1 2.9 0 4.1M28.2 27c-1 1.2-1 2.9 0 4.1" />
-          </symbol>
-          <symbol id="i-piano" viewBox="0 0 48 48">
-            <rect x="7" y="15" width="34" height="18" rx="1.5" />
-            <path d="M12.7 15v18M18.3 15v18M24 15v18M29.7 15v18M35.3 15v18" stroke-width=".8" />
-            <path d="M11 15h3.4v10H11zM16.6 15H20v10h-3.4zM28 15h3.4v10H28zM33.6 15H37v10h-3.4z" fill="currentColor" stroke="none" />
-          </symbol>
-          <symbol id="i-trumpet" viewBox="0 0 48 48">
-            <path d="M5 24.5v3M6 26h22.5" />
-            <path d="M28.5 26 41 18.5v15z" />
-            <path d="M14 26v-6M18 26v-6M22 26v-6M12.8 20h2.4M16.8 20h2.4M20.8 20h2.4" />
-            <path d="M11 26c0 4 2 5.5 6 5.5h8.5c2 0 3-1 3-2.5" />
-          </symbol>
-          <symbol id="i-voice" viewBox="0 0 48 48">
-            <path d="M19 33V14l14-3.5v19" />
-            <path d="M19 18.5l14-3.5" />
-            <ellipse cx="15.8" cy="33.4" rx="3.6" ry="2.7" fill="currentColor" stroke="none" transform="rotate(-18 15.8 33.4)" />
-            <ellipse cx="29.8" cy="29.9" rx="3.6" ry="2.7" fill="currentColor" stroke="none" transform="rotate(-18 29.8 29.9)" />
-          </symbol>
-        </defs>
-      </svg>
+      <div class="crew stagger">
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Piano Trio</span>
+            <span class="crew__names">
+              <span class="m"><b>유중훈</b><i>Violin</i></span>
+              <span class="m"><b>김현태</b><i>Cello</i></span>
+              <span class="m"><b>김수현</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div><p class="who">유중훈 <i>Violin</i></p><p>충남대학교 졸업 · 한음·대전음협 콩쿠르 1위 · 대전아트필 오케스트라, 청주시립교향악단 비상임단원 역임</p></div>
+            <div><p class="who">김현태 <i>Cello</i></p><p>목원대학교 관현악과 졸업, 중앙대학교 대학원 석사 수료 · A.H.C.P Rising Star Concert 연주 · 비바아첼 필하모닉 협연</p></div>
+            <div><p class="who">김수현 <i>Piano</i></p><p>목원대학교 피아노과 학사, 이화여자대학교 반주과 석사 · 현) 목원대학교 반주과 박사과정 재학 · 클래시모 필하모닉 피아니스트</p></div>
+          </div>
+        </details>
 
-      <div class="ens">
-        <p class="ens__title">Piano Trio</p>
-        <div class="ens__grid stagger">
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-violin" /></svg></span>
-              <span class="pcard__name">유중훈</span>
-              <span class="pcard__inst">Violin</span>
-            </summary>
-            <ul>
-              <li>충남대학교 졸업</li>
-              <li>한음·대전음협 콩쿠르 1위</li>
-              <li>대전아트필 오케스트라, 청주시립교향악단 비상임단원 역임</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-cello" /></svg></span>
-              <span class="pcard__name">김현태</span>
-              <span class="pcard__inst">Cello</span>
-            </summary>
-            <ul>
-              <li>목원대학교 관현악과 졸업, 중앙대학교 대학원 석사 수료</li>
-              <li>A.H.C.P Rising Star Concert 연주</li>
-              <li>비바아첼 필하모닉 협연</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-piano" /></svg></span>
-              <span class="pcard__name">김수현</span>
-              <span class="pcard__inst">Piano</span>
-            </summary>
-            <ul>
-              <li>목원대학교 피아노과 학사, 이화여자대학교 반주과 석사</li>
-              <li>현) 목원대학교 반주과 박사과정 재학</li>
-              <li>클래시모 필하모닉 피아니스트</li>
-            </ul>
-          </details>
-        </div>
-      </div>
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Trumpet</span>
+            <span class="crew__names">
+              <span class="m"><b>안성준</b><i>Trumpet</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div><p class="who">안성준 <i>Trumpet</i></p><p>충남대학교 관현악과 졸업, AMPA Conducting 수료 · Sydney Korean Wind Orchestra 협연 · 테이스트 브라스 앙상블 리더, 컬러스 트럼펫 앙상블 단원</p></div>
+          </div>
+        </details>
 
-      <div class="ens">
-        <p class="ens__title">Trumpet</p>
-        <div class="ens__grid stagger">
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-trumpet" /></svg></span>
-              <span class="pcard__name">안성준</span>
-              <span class="pcard__inst">Trumpet</span>
-            </summary>
-            <ul>
-              <li>충남대학교 관현악과 졸업, AMPA Conducting 수료</li>
-              <li>Sydney Korean Wind Orchestra 협연</li>
-              <li>테이스트 브라스 앙상블 리더, 컬러스 트럼펫 앙상블 단원</li>
-            </ul>
-          </details>
-        </div>
-      </div>
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Tenor &amp; Piano</span>
+            <span class="crew__names">
+              <span class="m"><b>김동우</b><i>Tenor</i></span>
+              <span class="m"><b>조재량</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div><p class="who">김동우 <i>Tenor</i></p><p>충남대학교 예술대학 음악과 졸업 · 다수의 오케스트라 협연 및 오페라 주·조역 출연 · 현) 청주시립합창단 차석단원, 더테너즈 멤버</p></div>
+            <div><p class="who">조재량 <i>Piano</i></p><p>단국대학교 기악과 졸업, 성신여자대학교 반주학과 석사 · 예술의전당, 세종문화회관 등 다수의 독창회 및 독주회 반주 · 가톨릭대학교 성악과 실기 반주자</p></div>
+          </div>
+        </details>
 
-      <div class="ens">
-        <p class="ens__title">Tenor &amp; Piano</p>
-        <div class="ens__grid stagger">
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-voice" /></svg></span>
-              <span class="pcard__name">김동우</span>
-              <span class="pcard__inst">Tenor</span>
-            </summary>
-            <ul>
-              <li>충남대학교 예술대학 음악과 졸업</li>
-              <li>다수의 오케스트라 협연 및 오페라 주·조역 출연</li>
-              <li>현) 청주시립합창단 차석단원, 더테너즈 멤버</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-piano" /></svg></span>
-              <span class="pcard__name">조재량</span>
-              <span class="pcard__inst">Piano</span>
-            </summary>
-            <ul>
-              <li>단국대학교 기악과 졸업, 성신여자대학교 반주학과 석사</li>
-              <li>예술의전당, 세종문화회관 등 다수의 독창회 및 독주회 반주</li>
-              <li>가톨릭대학교 성악과 실기 반주자</li>
-            </ul>
-          </details>
-        </div>
-      </div>
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Piano</span>
+            <span class="crew__names">
+              <span class="m"><b>최상미</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div><p class="who">최상미 <i>Piano</i></p><p>독일 카를스루에 국립음대 학사 및 석사 졸업 · 독일 바이마르 국립음대 쳄발로 최고연주자과정 졸업 · 현) 한국하프시코드협회 이사 및 전문연주자</p></div>
+          </div>
+        </details>
 
-      <div class="ens">
-        <p class="ens__title">Piano</p>
-        <div class="ens__grid stagger">
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-piano" /></svg></span>
-              <span class="pcard__name">최상미</span>
-              <span class="pcard__inst">Piano</span>
-            </summary>
-            <ul>
-              <li>독일 카를스루에 국립음대 학사 및 석사 졸업</li>
-              <li>독일 바이마르 국립음대 쳄발로 최고연주자과정 졸업</li>
-              <li>현) 한국하프시코드협회 이사 및 전문연주자</li>
-            </ul>
-          </details>
-        </div>
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">String Quartet</span>
+            <span class="crew__names">
+              <span class="m"><b>하정화</b><i>Violin</i></span>
+              <span class="m"><b>김수지</b><i>Violin</i></span>
+              <span class="m"><b>황정은</b><i>Viola</i></span>
+              <span class="m"><b>박수미</b><i>Cello</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div><p class="who">하정화 <i>Violin</i></p><p>한양대학교 졸업 · 한경필하모닉, 심포니송 단원 역임 · 현) 앙상블 자연의소리, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</p></div>
+            <div><p class="who">김수지 <i>Violin</i></p><p>충남대학교 관현악과 졸업, 성신여자대학교 음악학과 석사 · 경희대학교 테크노경영대학원 문화예술경영 석사과정 재학 · 현) 에제르아트홀·에제르앙상블 대표</p></div>
+            <div><p class="who">황정은 <i>Viola</i></p><p>한양대학교 음악대학 졸업 · 천안예술의전당 페스티벌 오케스트라 비올라 수석 역임 · 현) 에제르앙상블, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</p></div>
+            <div><p class="who">박수미 <i>Cello</i></p><p>한양대학교 졸업, 한국예술종합학교 전문사 오케스트라과정 수료 · 전주시립교향악단 비상임단원 역임 · 현) DCMF 오케스트라 단원, 앙상블 이리스콰텟 멤버</p></div>
+          </div>
+        </details>
       </div>
-
-      <div class="ens">
-        <p class="ens__title">String Quartet</p>
-        <div class="ens__grid ens__grid--4 stagger">
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-violin" /></svg></span>
-              <span class="pcard__name">하정화</span>
-              <span class="pcard__inst">Violin</span>
-            </summary>
-            <ul>
-              <li>한양대학교 졸업</li>
-              <li>한경필하모닉, 심포니송 단원 역임</li>
-              <li>현) 앙상블 자연의소리, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-violin" /></svg></span>
-              <span class="pcard__name">김수지</span>
-              <span class="pcard__inst">Violin</span>
-            </summary>
-            <ul>
-              <li>충남대학교 관현악과 졸업, 성신여자대학교 음악학과 석사</li>
-              <li>경희대학교 테크노경영대학원 문화예술경영 석사과정 재학</li>
-              <li>현) 에제르아트홀·에제르앙상블 대표</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-violin" /></svg></span>
-              <span class="pcard__name">황정은</span>
-              <span class="pcard__inst">Viola</span>
-            </summary>
-            <ul>
-              <li>한양대학교 음악대학 졸업</li>
-              <li>천안예술의전당 페스티벌 오케스트라 비올라 수석 역임</li>
-              <li>현) 에제르앙상블, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</li>
-            </ul>
-          </details>
-          <details class="pcard">
-            <summary>
-              <span class="medal"><svg><use href="#i-cello" /></svg></span>
-              <span class="pcard__name">박수미</span>
-              <span class="pcard__inst">Cello</span>
-            </summary>
-            <ul>
-              <li>한양대학교 졸업, 한국예술종합학교 전문사 오케스트라과정 수료</li>
-              <li>전주시립교향악단 비상임단원 역임</li>
-              <li>현) DCMF 오케스트라 단원, 앙상블 이리스콰텟 멤버</li>
-            </ul>
-          </details>
-        </div>
-      </div>
-      <p class="note">카드를 누르면 연주자 약력을 볼 수 있습니다.</p>
+      <p class="note">편성을 누르면 연주자 약력을 볼 수 있습니다.</p>
     </section>
 
     <!-- 10. 맺음 / 공유 -->
