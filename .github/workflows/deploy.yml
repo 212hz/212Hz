@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
+      url: ${{ steps.d1.outputs.page_url || steps.d2.outputs.page_url || steps.d3.outputs.page_url || steps.d4.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -43,15 +43,27 @@ jobs:
         with:
           path: _site
 
-      # GitHub 쪽에서 가끔 "No artifacts named github-pages" 일시 오류가 나므로 1회 자동 재시도
-      - id: deployment
+      # GitHub Pages 쪽 일시 오류(500, artifact 조회 실패 등) 대비: 최대 3회 재시도 (30·60·90초 간격)
+      - id: d1
         uses: actions/deploy-pages@v4
         continue-on-error: true
 
-      - name: Wait before retry
-        if: steps.deployment.outcome == 'failure'
-        run: sleep 20
+      - if: steps.d1.outcome == 'failure'
+        run: sleep 30
+      - id: d2
+        if: steps.d1.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
 
-      - id: deployment_retry
-        if: steps.deployment.outcome == 'failure'
+      - if: steps.d1.outcome == 'failure' && steps.d2.outcome == 'failure'
+        run: sleep 60
+      - id: d3
+        if: steps.d1.outcome == 'failure' && steps.d2.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - if: steps.d1.outcome == 'failure' && steps.d2.outcome == 'failure' && steps.d3.outcome == 'failure'
+        run: sleep 90
+      - id: d4
+        if: steps.d1.outcome == 'failure' && steps.d2.outcome == 'failure' && steps.d3.outcome == 'failure'
         uses: actions/deploy-pages@v4
