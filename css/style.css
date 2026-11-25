@@ -577,6 +577,39 @@ strong { font-weight: 600; }
 }
 .composer__lead p { margin: 0; }
 
+/* 접기 블록 (.fold) — 약력 등 긴 내용을 버튼 하나로 접어 둠 */
+.fold { margin-top: 30px; }
+.fold > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border: 1px solid rgba(227, 187, 130, 0.55);
+  border-radius: 999px;
+  list-style: none;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-soft);
+  cursor: pointer;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::after {
+  content: "";
+  width: 6px; height: 6px;
+  margin-top: -3px;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  transform: rotate(45deg);
+  transition: transform 0.4s var(--ease-out), margin 0.4s var(--ease-out);
+}
+.fold[open] > summary::after { transform: rotate(-135deg); margin-top: 3px; }
+.fold > summary:hover { background: rgba(227, 187, 130, 0.1); box-shadow: 0 0 18px rgba(255, 200, 130, 0.18); }
+.fold__close { display: none; }
+.fold[open] .fold__open { display: none; }
+.fold[open] .fold__close { display: inline; }
+.fold[open] > :not(summary) { animation: fadeBlur 0.7s var(--ease-out); }
+.fold .cv { margin-top: 20px; }
 /* 작곡가 약력 */
 .cv {
   margin: 38px 0 0;
