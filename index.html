@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1b2436" />
+  <meta name="theme-color" content="#141c2c" />
   <title>211Hz · 작곡가 이원희 작품발표회</title>
-  <meta name="description" content="211Hz — 현대음악과 가곡을 만나다. 낯섦과 익숙함. 2026년 12월 10일(목) 오후 7시 30분." />
+  <meta name="description" content="211Hz — 현대음악과 가곡을 만나다. 낯섦과 익숙함. 2026년 12월 10일(목) 오후 7시 30분, 대전 엘클래식." />
 
   <!-- 링크 공유 미리보기 (카카오톡 등은 절대경로가 필요) -->
   <meta property="og:type" content="website" />
@@ -16,46 +16,125 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+  <!-- 오프닝 인트로 -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__inner">
+      <p class="intro__eyebrow">Lee Wonhee · Composition Recital</p>
+      <svg class="intro__wave" viewBox="0 0 240 40">
+        <path d="M0 20 C 15 0, 25 0, 40 20 S 65 40, 80 20 S 105 0, 120 20 S 145 40, 160 20 S 185 0, 200 20 S 225 40, 240 20" />
+      </svg>
+      <p class="intro__title">211<em>Hz</em></p>
+      <p class="intro__sub">낯섦과 익숙함</p>
+    </div>
+    <span class="intro__skip">Tap to open</span>
+  </div>
+
   <canvas id="snow" aria-hidden="true"></canvas>
 
   <main class="card">
 
     <!-- 1. 메인 비주얼 : 포스터 -->
-    <section class="hero" aria-label="공연 포스터">
-      <img class="hero__poster" src="assets/img/poster.jpg"
-           alt="211Hz 작곡가 이원희 작품발표회 포스터 — 현대음악과 가곡을 만나다, 낯섦과 익숙함, 2026년 12월 10일 목요일 19시 30분" />
+    <section class="hero" id="hero" aria-label="공연 포스터">
+      <div class="hero__frame">
+        <img class="hero__poster" id="hero-poster" src="assets/img/poster.jpg"
+             alt="211Hz 작곡가 이원희 작품발표회 포스터 — 현대음악과 가곡을 만나다, 낯섦과 익숙함, 2026년 12월 10일 목요일 19시 30분, 시각예술 임채은" />
+        <div class="hero__leak" aria-hidden="true"></div>
+      </div>
       <div class="hero__glow" aria-hidden="true"></div>
-      <a class="hero__scroll" href="#invite" aria-label="초대장 보기">
+      <a class="hero__scroll" href="#prologue" aria-label="초대장 보기">
         <span>Invitation</span>
         <i></i>
       </a>
     </section>
 
-    <!-- 2. 타이틀 / 인사 -->
-    <section id="invite" class="section intro reveal">
+    <!-- 2. 프롤로그 -->
+    <section id="prologue" class="section prologue reveal">
       <p class="eyebrow"><span class="line"></span>작곡가 이원희 작품발표회<span class="line"></span></p>
-      <h1 class="title">211<em>Hz</em></h1>
+      <h1 class="title shimmer">211<em>Hz</em></h1>
       <p class="subtitle">현대음악과 가곡을 만나다</p>
-      <p class="slogan">낯섦과 익숙함</p>
+      <p class="slogan" aria-label="낯섦과 익숙함">
+        <span class="slogan__a">낯섦</span><span class="slogan__and">과</span><span class="slogan__b">익숙함</span>
+      </p>
 
-      <svg class="wave" viewBox="0 0 300 40" aria-hidden="true">
-        <path d="M0 20 Q 18.75 2 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20" />
-        <path d="M0 20 Q 18.75 38 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20" />
-      </svg>
+      <div class="tone">
+        <canvas class="tone__wave" id="tone-wave" aria-hidden="true"></canvas>
+        <button class="tone__btn" type="button" id="tone-btn" aria-pressed="false">
+          <span class="tone__icon" aria-hidden="true"></span>
+          <span class="tone__label">211Hz 들어보기</span>
+        </button>
+        <p class="tone__hint">이 공연의 이름이 된 주파수를 들어보세요</p>
+      </div>
 
-      <div class="greeting">
-        <p>눈 내리는 겨울밤,<br />낯선 소리와 익숙한 노래가<br />한자리에서 만납니다.</p>
-        <p>현대음악의 새로운 울림과<br />가곡의 따뜻한 선율이 이어지는 자리에<br />소중한 분들을 초대합니다.</p>
-        <p class="sign">작곡가 이원희 드림</p>
+      <div class="letter stagger">
+        <p>익숙한 노래가 문득 낯설게 들리고,<br />낯선 소리가 어느새 익숙해지는<br />순간이 있습니다.</p>
+        <p>현대음악의 새로운 울림과<br />가곡의 서정이 한 무대에서 만나는 밤.<br />음악은 그림이 되고,<br />그림은 다시 음악이 됩니다.</p>
+        <p>눈 내리는 십이월의 저녁,<br /><strong>211Hz</strong>의 울림 속으로<br />소중한 당신을 초대합니다.</p>
+        <p class="sign">작곡가 이원희</p>
       </div>
     </section>
 
-    <!-- 3. 일시 -->
-    <section class="section when reveal" aria-labelledby="when-title">
+    <!-- 3. 콘셉트 : 두 개의 울림 -->
+    <section class="section concept reveal" aria-labelledby="concept-title">
+      <h2 id="concept-title" class="sec-title"><span>Two Resonances</span>두 개의 울림</h2>
+
+      <div class="concept__pair stagger">
+        <article class="res res--a">
+          <p class="res__en">Unfamiliar</p>
+          <h3 class="res__ko">낯섦</h3>
+          <p class="res__genre">현대음악</p>
+          <p class="res__txt">익숙한 문법을 벗어난 화성과 음색.<br />처음 듣는 소리가 건네는 설렘.</p>
+        </article>
+        <div class="res__meet" aria-hidden="true"><span>×</span></div>
+        <article class="res res--b">
+          <p class="res__en">Familiar</p>
+          <h3 class="res__ko">익숙함</h3>
+          <p class="res__genre">가곡</p>
+          <p class="res__txt">말과 선율이 함께 흐르는 노래.<br />마음 가장 가까운 곳에 닿는 울림.</p>
+        </article>
+      </div>
+
+      <div class="concept__art reveal">
+        <p class="res__en">and, Visual Art</p>
+        <h3 class="concept__art-title">그리고, 음악이 그림이 되다</h3>
+        <p class="res__txt">음표를 반복하고 겹쳐 풍경을 그리는<br />시각예술가 임채은의 <strong class="term">‘선율층경법’</strong>.<br />소리가 눈앞의 풍경으로 번져갑니다.</p>
+      </div>
+    </section>
+
+    <!-- 4. 감상 포인트 -->
+    <section class="section highlights reveal" aria-labelledby="hl-title">
+      <h2 id="hl-title" class="sec-title"><span>Highlights</span>이 밤의 감상 포인트</h2>
+      <ol class="hl stagger">
+        <li class="hl__item">
+          <span class="hl__no">01</span>
+          <div>
+            <h3>현대음악과 가곡, 한 무대</h3>
+            <p>피아노 트리오부터 현악사중주까지,<br />다양한 편성으로 만나는 이원희의 음악 세계.</p>
+          </div>
+        </li>
+        <li class="hl__item">
+          <span class="hl__no">02</span>
+          <div>
+            <h3>음악이 그림이 되는 순간</h3>
+            <p>이번 공연을 위해 작곡된 현악사중주와<br />시각예술 임채은의 작품이 함께합니다.<br /><span class="muted">모티브 · 알바루 시자 <em lang="pt">Piscina das Marés</em></span></p>
+          </div>
+        </li>
+        <li class="hl__item">
+          <span class="hl__no">03</span>
+          <div>
+            <h3>가까이, 더 깊이</h3>
+            <p>100석 규모의 하우스 콘서트홀 엘클래식.<br />스타인웨이 그랜드 피아노의 울림을<br />가장 가까운 거리에서.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5. 일시 -->
+    <section class="section when reveal" id="when" aria-labelledby="when-title">
       <h2 id="when-title" class="sec-title"><span>Date</span>공연 일시</h2>
 
       <p class="datetime">
@@ -66,28 +145,36 @@
       <p class="datetime-ko">2026년 12월 10일 목요일 오후 7시 30분</p>
 
       <div class="calendar" aria-label="2026년 12월 달력">
-        <p class="calendar__month">December</p>
+        <p class="calendar__month">December <span>2026</span></p>
         <div class="calendar__grid" id="calendar"></div>
       </div>
 
-      <p class="dday" id="dday" aria-live="polite"></p>
+      <div class="countdown" id="countdown" aria-live="off">
+        <div><b data-cd="d">00</b><span>Days</span></div>
+        <div><b data-cd="h">00</b><span>Hours</span></div>
+        <div><b data-cd="m">00</b><span>Min</span></div>
+        <div><b data-cd="s">00</b><span>Sec</span></div>
+      </div>
+      <p class="dday" id="dday"></p>
+
+      <button class="btn btn--ghost" type="button" id="btn-ics">캘린더에 저장</button>
     </section>
 
-    <!-- 4. 프로그램 -->
+    <!-- 6. 프로그램 -->
     <section class="section program reveal" aria-labelledby="program-title">
       <h2 id="program-title" class="sec-title"><span>Program</span>프로그램</h2>
-      <ol class="program__list">
+      <ol class="program__list stagger">
         <li><span class="no">I</span><span class="name en">Piano Trio</span></li>
         <li><span class="no">II</span><span class="name en">Trumpet Solo</span></li>
         <li><span class="no">III</span><span class="name">달</span></li>
         <li><span class="no">IV</span><span class="name en">Piano Solo</span></li>
-        <li><span class="no">V</span><span class="name en">String Quartet</span></li>
+        <li class="is-feature"><span class="no">V</span><span class="name en">String Quartet</span><span class="tag">with Visual Art · 임채은</span></li>
         <li><span class="no">VI</span><span class="name">눈맞춤</span></li>
       </ol>
       <p class="note">* 세부 곡목 및 연주자는 추후 안내드립니다.</p>
     </section>
 
-    <!-- 5. 사람들 -->
+    <!-- 7. 함께하는 사람들 -->
     <section class="section people reveal" aria-labelledby="people-title">
       <h2 id="people-title" class="sec-title"><span>Artists</span>함께하는 사람들</h2>
 
@@ -124,7 +211,7 @@
       </div>
     </section>
 
-    <!-- 5-1. 작가 노트 -->
+    <!-- 8. 작가 노트 -->
     <section class="section note-artist reveal" aria-labelledby="artist-note-title">
       <h2 id="artist-note-title" class="sec-title"><span>Artist's Note</span>작가 노트</h2>
       <h3 class="essay__title">음악과 시각예술, 그리고 관객</h3>
@@ -143,10 +230,11 @@
       <button class="btn btn--ghost essay__toggle" type="button" id="essay-toggle" aria-controls="essay" aria-expanded="false">작가 노트 전체 보기</button>
     </section>
 
-    <!-- 6. 장소 -->
-    <section class="section where reveal" aria-labelledby="where-title">
+    <!-- 9. 오시는 길 -->
+    <section class="section where reveal" id="where" aria-labelledby="where-title">
       <h2 id="where-title" class="sec-title"><span>Venue</span>오시는 길</h2>
       <p class="venue">엘클래식 <span class="venue-en">L Classic</span></p>
+      <p class="venue-hall">100석 하우스 콘서트홀 · STEINWAY &amp; SONS</p>
       <p class="venue-addr">대전 유성구 테크노중앙로 50<br />디티비안S C동 4층</p>
       <p class="venue-sub">(지번) 대전 유성구 관평동 940 · <a href="tel:0429332050">042-933-2050</a></p>
 
@@ -156,7 +244,7 @@
         <button class="btn btn--ghost" type="button" id="btn-addr" data-addr="대전 유성구 테크노중앙로 50 디티비안S C동 4층 엘클래식">주소 복사</button>
       </div>
 
-      <dl class="directions">
+      <dl class="directions stagger">
         <div>
           <dt>주차</dt>
           <dd>건물 지하 1층 ~ 지하 4층 주차장 이용</dd>
@@ -172,11 +260,11 @@
       </dl>
     </section>
 
-    <!-- 7. 공유 -->
-    <section class="section share reveal" aria-label="초대장 공유">
-      <p class="share__lead">이 초대장을 소중한 분께 전해 주세요</p>
+    <!-- 10. 맺음 / 공유 -->
+    <section class="section closing reveal" aria-label="맺음말과 공유">
+      <p class="closing__line">12월 10일, 눈 내리는 겨울밤<br /><strong>211Hz</strong>의 울림 속에서 뵙겠습니다.</p>
       <div class="share__btns">
-        <button class="btn" type="button" id="btn-share">공유하기</button>
+        <button class="btn" type="button" id="btn-share">초대장 공유하기</button>
         <button class="btn btn--ghost" type="button" id="btn-copy">링크 복사</button>
       </div>
     </section>
@@ -186,6 +274,15 @@
       <p>작곡가 이원희 작품발표회 · 시각예술 임채은</p>
     </footer>
   </main>
+
+  <!-- 하단 고정 바 -->
+  <nav class="dock" id="dock" aria-label="빠른 안내">
+    <a class="dock__info" href="#when">
+      <b>12.10 THU 19:30</b>
+      <span>대전 엘클래식</span>
+    </a>
+    <a class="dock__btn" href="#where">오시는 길</a>
+  </nav>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
