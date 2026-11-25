@@ -1,0 +1,547 @@
+/* =========================================================
+   211Hz · 작곡가 이원희 작품발표회 — 모바일 초대장
+   팔레트: 겨울밤 네이비 / 슬레이트 블루 / 금빛 / 은빛
+   ========================================================= */
+:root {
+  --navy-900: #121a29;
+  --navy-800: #1b2436;
+  --navy-700: #27324a;
+  --slate-500: #5d6a86;
+  --slate-300: #9aa6bf;
+  --silver: #e4e9f2;
+  --silver-dim: rgba(228, 233, 242, 0.72);
+  --gold: #e8c28a;
+  --gold-soft: #f3dcb4;
+  --gold-glow: rgba(255, 196, 120, 0.55);
+
+  --serif-en: "Cormorant Garamond", "Times New Roman", serif;
+  --serif-ko: "Noto Serif KR", "Nanum Myeongjo", serif;
+
+  --card-max: 480px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--serif-ko);
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  background:
+    radial-gradient(120% 60% at 50% 0%, #3b4763 0%, transparent 60%),
+    linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+  background-attachment: fixed;
+}
+
+img { display: block; max-width: 100%; }
+
+/* 눈 효과 캔버스 */
+#snow {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 데스크톱에서는 가운데 모바일 카드 형태 */
+.card {
+  position: relative;
+  max-width: var(--card-max);
+  margin: 0 auto;
+  background: linear-gradient(180deg, #2a3550 0%, var(--navy-800) 30%, var(--navy-900) 100%);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  position: relative;
+}
+.hero__poster {
+  width: 100%;
+  height: auto;
+  animation: heroIn 2.2s ease-out both;
+}
+.hero__glow {
+  /* 포스터 하단과 본문 배경을 번지듯 연결 */
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 22%;
+  background: linear-gradient(180deg, transparent 0%, rgba(27, 36, 54, 0.6) 55%, var(--navy-800) 100%);
+  pointer-events: none;
+}
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--silver-dim);
+  text-decoration: none;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  z-index: 2;
+}
+.hero__scroll i {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: drip 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes heroIn {
+  from { opacity: 0; filter: blur(8px) brightness(0.7); transform: scale(1.03); }
+  to   { opacity: 1; filter: none; transform: none; }
+}
+@keyframes drip {
+  0%   { transform: scaleY(0); opacity: 0; }
+  40%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ---------------- 공통 섹션 ---------------- */
+.section {
+  position: relative;
+  padding: 72px 28px;
+  text-align: center;
+}
+.section + .section::before {
+  /* 금빛 수평선 — 포스터의 날짜 라인 모티프 */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 62%;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(232, 194, 138, 0.55), transparent);
+}
+.section + .section::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 44px;
+  height: 7px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--gold-glow), transparent);
+}
+
+.sec-title {
+  margin: 0 0 34px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--silver-dim);
+}
+.sec-title span {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--gold-soft);
+  text-shadow: 0 0 18px rgba(255, 200, 130, 0.25);
+}
+
+/* 스크롤 등장 효과 (번짐 → 선명) */
+.reveal {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(24px);
+  transition: opacity 1.2s ease, filter 1.2s ease, transform 1.2s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+/* ---------------- INTRO ---------------- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  color: var(--silver-dim);
+}
+.eyebrow .line {
+  width: 28px;
+  height: 1px;
+  background: var(--silver-dim);
+}
+.title {
+  margin: 0;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(4.2rem, 22vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 0%, var(--silver) 45%, var(--gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(255, 220, 170, 0.28));
+}
+.title em { font-style: italic; }
+.subtitle {
+  margin: 16px 0 6px;
+  font-size: 1.22rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+.slogan {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--gold-soft);
+}
+
+.wave {
+  display: block;
+  width: 72%;
+  max-width: 280px;
+  margin: 36px auto;
+  overflow: visible;
+}
+.wave path {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: wave 3.2s ease-out forwards, shimmer 6s ease-in-out 3.2s infinite;
+}
+.wave path:first-child { stroke: var(--gold); }
+.wave path:last-child  { stroke: var(--silver); opacity: 0.6; animation-delay: 0.4s, 3.6s; }
+.reveal:not(.is-visible) .wave path { animation-play-state: paused; }
+
+@keyframes wave { to { stroke-dashoffset: 0; } }
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.greeting p {
+  margin: 0 0 20px;
+  font-size: 0.98rem;
+  color: var(--silver-dim);
+}
+.greeting .sign {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: var(--slate-300);
+}
+
+/* ---------------- WHEN ---------------- */
+.datetime {
+  margin: 0;
+  font-family: var(--serif-en);
+  font-size: clamp(1.6rem, 8vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+.datetime em {
+  margin: 0 0.25em;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-soft);
+}
+.datetime .num { white-space: nowrap; }
+.datetime-ko {
+  margin: 6px 0 38px;
+  font-size: 0.92rem;
+  color: var(--silver-dim);
+}
+
+.calendar {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 22px 18px 18px;
+  border: 1px solid rgba(228, 233, 242, 0.14);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(2px);
+}
+.calendar__month {
+  margin: 0 0 12px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--gold-soft);
+}
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 6px;
+  font-family: var(--serif-en);
+  font-size: 1rem;
+}
+.calendar__grid .dow {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--slate-300);
+  padding-bottom: 6px;
+}
+.calendar__grid .d {
+  position: relative;
+  line-height: 2.2;
+  color: var(--silver-dim);
+}
+.calendar__grid .sun { color: #d9a3a3; }
+.calendar__grid .d.is-day {
+  color: var(--navy-900);
+  font-weight: 500;
+}
+.calendar__grid .d.is-day::before {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 2.1em;
+  height: 2.1em;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-soft) 0%, var(--gold) 70%);
+  box-shadow: 0 0 18px var(--gold-glow);
+  z-index: -1;
+}
+.calendar__grid .d.is-day { z-index: 0; }
+
+.dday {
+  margin: 26px 0 0;
+  font-size: 0.95rem;
+  color: var(--silver-dim);
+}
+.dday b {
+  font-family: var(--serif-en);
+  font-weight: 500;
+  font-size: 1.2em;
+  color: var(--gold-soft);
+}
+
+/* ---------------- PROGRAM ---------------- */
+.program__list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 300px;
+}
+.program__list li {
+  display: grid;
+  grid-template-columns: 2.4em 1fr;
+  align-items: baseline;
+  padding: 14px 4px;
+  border-bottom: 1px solid rgba(228, 233, 242, 0.1);
+  text-align: left;
+}
+.program__list li:last-child { border-bottom: 0; }
+.program__list .no {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--gold);
+}
+.program__list .name {
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: #fff;
+}
+.program__list .name.en {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+.note {
+  margin: 26px 0 0;
+  font-size: 0.8rem;
+  color: var(--slate-300);
+}
+
+/* ---------------- PEOPLE ---------------- */
+.people {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.people .sec-title { grid-column: 1 / -1; }
+.person { margin: 0; }
+.person__photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 194, 138, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+.person__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: saturate(0.85);
+}
+.person__photo::after {
+  /* 겨울빛 은은한 오버레이 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(18, 26, 41, 0.55) 100%);
+}
+.person figcaption {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.person .role {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--gold-soft);
+}
+.person strong {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #fff;
+}
+
+/* ---------------- WHERE ---------------- */
+.venue {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #fff;
+}
+.venue-addr {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--silver-dim);
+}
+.map-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* ---------------- BUTTON / SHARE ---------------- */
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 12px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(232, 194, 138, 0.22), rgba(232, 194, 138, 0.08));
+  color: var(--gold-soft);
+  font: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: rgba(232, 194, 138, 0.28);
+  box-shadow: 0 0 20px rgba(255, 200, 130, 0.3);
+  outline: none;
+}
+.btn--ghost {
+  border-color: rgba(228, 233, 242, 0.45);
+  background: transparent;
+  color: var(--silver);
+}
+.share__lead {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+  color: var(--silver-dim);
+}
+.share__btns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  padding: 40px 20px calc(48px + env(safe-area-inset-bottom));
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--slate-300);
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.25));
+}
+.footer__title {
+  margin: 0 0 4px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--silver-dim);
+}
+
+/* ---------------- TOAST ---------------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(28px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 20px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(18, 26, 41, 0.92);
+  border: 1px solid rgba(232, 194, 138, 0.4);
+  color: var(--silver);
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+.toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* 매우 좁은 화면 */
+@media (max-width: 340px) {
+  .section { padding: 60px 20px; }
+  .people { gap: 12px; }
+}
+
+/* 모션 최소화 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero__poster,
+  .hero__scroll i,
+  .wave path { animation: none; stroke-dashoffset: 0; }
+  .reveal { opacity: 1; filter: none; transform: none; transition: none; }
+  #snow { display: none; }
+}

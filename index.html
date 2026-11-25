@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1b2436" />
+  <title>211Hz · 작곡가 이원희 작품발표회</title>
+  <meta name="description" content="211Hz — 현대음악과 가곡을 만나다. 낯섦과 익숙함. 2026년 12월 10일(목) 오후 7시 30분." />
+
+  <!-- 링크 공유 미리보기 (배포 URL 확정 후 og:url / og:image 를 절대경로로 바꿔 주세요) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="211Hz · 작곡가 이원희 작품발표회" />
+  <meta property="og:description" content="현대음악과 가곡을 만나다 — 2026. 12. 10 Thu. 19:30" />
+  <meta property="og:image" content="assets/img/poster.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <main class="card">
+
+    <!-- 1. 메인 비주얼 : 포스터 -->
+    <section class="hero" aria-label="공연 포스터">
+      <img class="hero__poster" src="assets/img/poster.jpg"
+           alt="211Hz 작곡가 이원희 작품발표회 포스터 — 현대음악과 가곡을 만나다, 낯섦과 익숙함, 2026년 12월 10일 목요일 19시 30분" />
+      <div class="hero__glow" aria-hidden="true"></div>
+      <a class="hero__scroll" href="#invite" aria-label="초대장 보기">
+        <span>Invitation</span>
+        <i></i>
+      </a>
+    </section>
+
+    <!-- 2. 타이틀 / 인사 -->
+    <section id="invite" class="section intro reveal">
+      <p class="eyebrow"><span class="line"></span>작곡가 이원희 작품발표회<span class="line"></span></p>
+      <h1 class="title">211<em>Hz</em></h1>
+      <p class="subtitle">현대음악과 가곡을 만나다</p>
+      <p class="slogan">낯섦과 익숙함</p>
+
+      <svg class="wave" viewBox="0 0 300 40" aria-hidden="true">
+        <path d="M0 20 Q 18.75 2 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20" />
+        <path d="M0 20 Q 18.75 38 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20" />
+      </svg>
+
+      <div class="greeting">
+        <p>눈 내리는 겨울밤,<br />낯선 소리와 익숙한 노래가<br />한자리에서 만납니다.</p>
+        <p>현대음악의 새로운 울림과<br />가곡의 따뜻한 선율이 이어지는 자리에<br />소중한 분들을 초대합니다.</p>
+        <p class="sign">작곡가 이원희 드림</p>
+      </div>
+    </section>
+
+    <!-- 3. 일시 -->
+    <section class="section when reveal" aria-labelledby="when-title">
+      <h2 id="when-title" class="sec-title"><span>Date</span>공연 일시</h2>
+
+      <p class="datetime">
+        <span class="num">2026. 12. 10</span>
+        <em>Thu.</em>
+        <span class="num">19:30</span>
+      </p>
+      <p class="datetime-ko">2026년 12월 10일 목요일 오후 7시 30분</p>
+
+      <div class="calendar" aria-label="2026년 12월 달력">
+        <p class="calendar__month">December</p>
+        <div class="calendar__grid" id="calendar"></div>
+      </div>
+
+      <p class="dday" id="dday" aria-live="polite"></p>
+    </section>
+
+    <!-- 4. 프로그램 -->
+    <section class="section program reveal" aria-labelledby="program-title">
+      <h2 id="program-title" class="sec-title"><span>Program</span>프로그램</h2>
+      <ol class="program__list">
+        <li><span class="no">I</span><span class="name en">Piano Trio</span></li>
+        <li><span class="no">II</span><span class="name en">Trumpet Solo</span></li>
+        <li><span class="no">III</span><span class="name">달</span></li>
+        <li><span class="no">IV</span><span class="name en">Piano Solo</span></li>
+        <li><span class="no">V</span><span class="name en">String Quartet</span></li>
+        <li><span class="no">VI</span><span class="name">눈맞춤</span></li>
+      </ol>
+      <p class="note">* 세부 곡목 및 연주자는 추후 안내드립니다.</p>
+    </section>
+
+    <!-- 5. 사람들 -->
+    <section class="section people reveal" aria-labelledby="people-title">
+      <h2 id="people-title" class="sec-title"><span>Artists</span>함께하는 사람들</h2>
+
+      <figure class="person">
+        <div class="person__photo"><img src="assets/img/composer-lee-wonhee.jpg" alt="작곡가 이원희" loading="lazy" /></div>
+        <figcaption>
+          <span class="role">Composer · 작곡</span>
+          <strong>이원희</strong>
+        </figcaption>
+      </figure>
+
+      <figure class="person">
+        <div class="person__photo"><img src="assets/img/artist-lim-chaeeun.jpg" alt="시각예술 임채은" loading="lazy" /></div>
+        <figcaption>
+          <span class="role">Visual Art · 시각예술</span>
+          <strong>임채은</strong>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 6. 장소 -->
+    <section class="section where reveal" aria-labelledby="where-title">
+      <h2 id="where-title" class="sec-title"><span>Venue</span>오시는 길</h2>
+      <!-- TODO: 장소 확정 시 아래 내용을 교체하고 지도 링크(href)를 채워 주세요 -->
+      <p class="venue">공연 장소 추후 안내</p>
+      <p class="venue-addr">장소가 확정되면 이곳에 안내해 드립니다.</p>
+      <div class="map-links" hidden>
+        <a class="btn" href="#" target="_blank" rel="noopener">네이버 지도</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">카카오맵</a>
+      </div>
+    </section>
+
+    <!-- 7. 공유 -->
+    <section class="section share reveal" aria-label="초대장 공유">
+      <p class="share__lead">이 초대장을 소중한 분께 전해 주세요</p>
+      <div class="share__btns">
+        <button class="btn" type="button" id="btn-share">공유하기</button>
+        <button class="btn btn--ghost" type="button" id="btn-copy">링크 복사</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer__title">211<em>Hz</em></p>
+      <p>작곡가 이원희 작품발표회 · 시각예술 임채은</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
