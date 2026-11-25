@@ -1,0 +1,43 @@
+# main 브랜치에 push 될 때마다 초대장을 GitHub Pages 로 자동 배포합니다.
+name: Deploy invitation to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Actions 탭에서 수동 재배포도 가능
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          cp -r index.html css js assets _site/
+          # 배포 시점 버전을 붙여 브라우저/카카오톡 캐시로 옛 화면이 보이는 것을 방지
+          VER=$(date +%Y%m%d%H%M)
+          sed -i "s#css/style.css#css/style.css?v=${VER}#; s#js/main.js#js/main.js?v=${VER}#" _site/index.html
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

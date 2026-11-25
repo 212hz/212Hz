@@ -17,8 +17,23 @@ images/             원본 이미지
 
 `index.html`을 브라우저로 열면 됩니다. 별도 빌드는 없습니다.
 
+## 배포 (자동 업데이트)
+
+- 주소: https://gunholee.github.io/211Hz/
+- `main` 브랜치에 push 하면 GitHub Actions(`.github/workflows/deploy.yml`)가 자동으로 Pages에 배포합니다 (1~2분 소요).
+- 최초 1회: 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 설정.
+- 수동 재배포: Actions 탭 → *Deploy invitation to GitHub Pages* → **Run workflow**.
+
+수정 흐름:
+
+```
+git add -A
+git commit -m "변경 내용"
+git push
+```
+
 ## 추후 입력할 정보
 
 - 공연 장소 / 주소 / 지도 링크 → `index.html`의 `오시는 길` 섹션 (TODO 주석)
 - 세부 곡목·연주자
-- 배포 URL 확정 후 `og:image`, `og:url`을 절대경로로 변경 (카카오톡 미리보기용)
+- 카카오톡 미리보기가 갱신되지 않으면 [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 캐시 초기화
