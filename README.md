@@ -1,39 +1,71 @@
 # 212Hz — 작곡가 이원희 작품발표회 모바일 초대장
 
 현대음악과 가곡을 만나다 · 낯섦과 익숙함
-2026년 12월 10일(목) 오후 7시 30분 · 시각예술 임채은
+2026년 12월 10일(목) 오후 7시 30분 · 대전 엘클래식
 
-## 구조
+- 사이트: https://212hz.github.io/212Hz/
+- 저장소: https://github.com/212hz/212Hz
+
+## 파일 구조
 
 ```
-index.html          초대장 본문
-css/style.css       스타일 (네이비 / 금빛·은빛 라인, 번짐 효과)
-js/main.js          눈 효과, 달력, D-day, 공유/링크 복사
-assets/img/         웹용으로 줄인 이미지 (poster, composer, artist)
-images/             원본 이미지
+index.html                  초대장 본문 (모든 문구는 여기)
+css/style.css               스타일 (섹션별 주석 블록으로 구분)
+js/main.js                  인트로, 스크롤 효과, 파형, 달력·카운트다운, 캘린더 저장, 공유, 눈 효과
+assets/img/                 웹용 이미지 (poster-212.jpg, composer-*.jpg, artist-*.jpg)
+images/                     원본 이미지 (배포되지 않음)
+.github/workflows/deploy.yml  자동 배포 (push → GitHub Pages, 일시 오류 시 1회 재시도)
 ```
 
-## 미리보기
+## 섹션 순서 (index.html 안의 주석으로 위치 확인)
 
-`index.html`을 브라우저로 열면 됩니다. 별도 빌드는 없습니다.
+| 주석 | 섹션 | 자주 고치는 것 |
+|---|---|---|
+| `<!-- 오프닝 인트로 -->` | 첫 화면 | 제목·문구 |
+| `<!-- 1. 메인 비주얼 -->` | 포스터 | 이미지 파일 |
+| `<!-- 2. 프롤로그 -->` | 제목·초대 인사말 | 인사말 |
+| `<!-- 3. 작곡가 (메인) -->` | 이원희 사진·현직·소개·약력 | 약력 `<li>` |
+| `<!-- 3-1. 연주자 -->` | 편성별 연주자 카드 | 연주자 추가/수정 |
+| `<!-- 4. 콘셉트 -->` | 두 개의 울림 | |
+| `<!-- 5. 감상 포인트 -->` | 01~03 | |
+| `<!-- 6. 일시 -->` | 날짜·달력·카운트다운 | 날짜는 `js/main.js`의 `EVENT`, 캘린더 저장(ics)도 함께 |
+| `<!-- 7. 프로그램 -->` | 곡명·편성·곡 소개 | 곡 추가/수정 |
+| `<!-- 9. 오시는 길 -->` | 엘클래식 주소·지도·교통 | |
+| `<!-- 9-1. 시각예술 (협업) -->` | 임채은 카드·프로필·작가 노트 | |
+| `<!-- 10. 맺음 / 공유 -->` | 맺음말·공유 버튼 | |
 
-## 배포 (자동 업데이트)
+## 자주 하는 수정
 
-- 주소: https://212hz.github.io/212Hz/
-- `main` 브랜치에 push 하면 GitHub Actions(`.github/workflows/deploy.yml`)가 자동으로 Pages에 배포합니다 (1~2분 소요).
-- 최초 1회: 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 설정.
-- 수동 재배포: Actions 탭 → *Deploy invitation to GitHub Pages* → **Run workflow**.
+- **연주자 추가**: 같은 편성 안의 `<details class="pcard"> … </details>` 블록 하나를 복사해 이름·악기·약력만 바꿉니다.
+  아이콘은 `<use href="#i-violin" />` 의 값으로 고릅니다: `i-violin`, `i-cello`, `i-piano`, `i-trumpet`, `i-voice`.
+  새 편성이 필요하면 `<div class="ens"> … </div>` 블록을 통째로 복사합니다. 4명 편성은 `ens__grid--4` 클래스를 붙이면 2×2로 배치됩니다.
+- **곡 추가/수정**: `<li class="pg"> … </li>` 블록 하나가 한 곡입니다. 시각예술 협업 곡은 `is-feature` 클래스와 `tag`를 붙입니다.
+- **포스터 교체**: 새 이미지를 `assets/img/`에 **새 파일명**으로 넣고, `index.html`의 `hero__poster` src 와 `og:image` 두 곳을 바꿉니다.
+  (같은 파일명으로 덮어쓰면 휴대폰·카카오톡 캐시 때문에 옛 포스터가 보일 수 있습니다.)
+- **카카오톡 미리보기 갱신**: [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 주소 입력 → 캐시 초기화.
 
-수정 흐름:
+## 배포 (자동)
+
+`main`에 push 하면 1~2분 뒤 사이트에 반영됩니다. 수동 재배포: Actions 탭 → *Deploy invitation to GitHub Pages* → **Run workflow**.
 
 ```
 git add -A
-git commit -m "변경 내용"
+git commit -m "무엇을 왜 바꿨는지"
 git push
 ```
 
-## 추후 입력할 정보
+## 되돌리기 (유지보수 원칙: 수정 1건 = 커밋 1건)
 
-- 세부 곡목·연주자
-- 작곡가 이원희 프로필
-- 카카오톡 미리보기가 갱신되지 않으면 [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 캐시 초기화
+```
+git log --oneline              # 변경 이력 확인
+git show <커밋ID>              # 그 커밋에서 무엇이 바뀌었는지 보기
+git revert <커밋ID>            # 그 변경만 취소하는 새 커밋 생성 (이력 보존, 가장 안전)
+git push                       # 사이트에도 반영
+```
+
+특정 시점 화면을 잠깐 확인만 하려면 `git checkout <커밋ID> -- index.html` 후 브라우저로 열어 보고, `git checkout HEAD -- index.html` 로 원상복구합니다.
+
+## 남은 정보 (받으면 반영)
+
+- 티켓·예약 방법
+- 공연 종료 시간 (현재 캘린더 저장 시 2시간으로 가정)
