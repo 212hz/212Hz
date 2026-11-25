@@ -1382,13 +1382,13 @@ strong { font-weight: 600; }
 .venue-sub { margin: 8px 0 0; font-size: 0.8rem; color: var(--slate-300); }
 .venue-sub a { color: inherit; }
 .map-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 지도 버튼 2×2 */
   gap: 8px;
-  margin-top: 24px;
+  max-width: 320px;
+  margin: 24px auto 0;
 }
-.map-links .btn { min-width: 0; padding: 10px 16px; font-size: 0.85rem; }
+.map-links .btn { min-width: 0; padding: 10px 12px; font-size: 0.85rem; }
 .directions {
   max-width: 340px;
   margin: 30px auto 0;

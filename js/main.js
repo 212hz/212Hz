@@ -246,6 +246,23 @@
   };
   const pageUrl = () => location.href.split("#")[0];
   $("btn-copy")?.addEventListener("click", () => copyText(pageUrl(), "링크가 복사되었습니다"));
+  // T맵: 앱 실행 시도 → 1.5초 안에 화면이 그대로면(앱 없음) 스토어로 이동
+  $("btn-tmap")?.addEventListener("click", (e) => {
+    const ua = navigator.userAgent;
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+    const isAndroid = /Android/i.test(ua);
+    if (!isIOS && !isAndroid) {
+      e.preventDefault();
+      showToast("T맵은 휴대폰에서 이용해 주세요");
+      return;
+    }
+    const store = isIOS
+      ? "https://apps.apple.com/kr/app/id431589174"
+      : "https://play.google.com/store/apps/details?id=com.skt.tmap.ku";
+    const timer = setTimeout(() => { if (!document.hidden) location.href = store; }, 1500);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) clearTimeout(timer); }, { once: true });
+  });
+
   const addrBtn = $("btn-addr");
   addrBtn?.addEventListener("click", () => copyText(addrBtn.dataset.addr, "주소가 복사되었습니다"));
   $("btn-share")?.addEventListener("click", async () => {
