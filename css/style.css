@@ -243,7 +243,7 @@ strong { font-weight: 600; }
    ========================================================= */
 .section {
   position: relative;
-  padding: 84px 28px;
+  padding: 68px 26px;
   text-align: center;
 }
 /* 금빛 수평선 — 스크롤 시 가운데서 양쪽으로 그어짐 */
@@ -274,7 +274,7 @@ strong { font-weight: 600; }
 .section.is-visible::after { transform: translateX(-50%) scale(1); }
 
 .sec-title {
-  margin: 0 0 40px;
+  margin: 0 0 32px;
   font-size: 0.92rem;
   font-weight: 400;
   letter-spacing: 0.22em;
@@ -482,7 +482,7 @@ strong { font-weight: 600; }
 /* =========================================================
    COMPOSER (메인 인물)
    ========================================================= */
-.composer { padding-top: 92px; }
+.composer { padding-top: 76px; }
 .composer__figure {
   position: relative;
   margin: 0 auto;
