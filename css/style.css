@@ -1486,6 +1486,56 @@ strong { font-weight: 600; }
 }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
+/* =========================================================
+   BACKGROUND MOTIFS — 곡에서 가져온 아주 옅은 배경 무늬 (투명도 3~10%)
+   · 전체: 212Hz 파형 / 바다 물결 등고선
+   · 프롤로그: 〈달〉의 달무리
+   · 시각예술: 〈Piscinas das Marés〉 수영장 물결 동심원
+   · 감상 포인트 번호: 〈나전칠기〉 자개빛 광택
+   · 프로그램: 오선지
+   무늬를 끄려면 해당 규칙의 background-image 만 지우면 됩니다.
+   ========================================================= */
+.card {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='560' viewBox='0 0 480 560' fill='none' stroke-width='1'%3E%3Cpath d='M0 70C80 40 160 100 240 70S400 40 480 70' stroke='%23e3bb82' stroke-opacity='.05'/%3E%3Cpath d='M0 84C80 54 160 114 240 84S400 54 480 84' stroke='%23e4e9f2' stroke-opacity='.028'/%3E%3Cpath d='M0 98C80 68 160 128 240 98S400 68 480 98' stroke='%23e4e9f2' stroke-opacity='.018'/%3E%3Cpath d='M0 370C100 340 140 400 240 370S380 340 480 370' stroke='%23e3bb82' stroke-opacity='.04'/%3E%3Cpath d='M0 384C100 354 140 414 240 384S380 354 480 384' stroke='%23e4e9f2' stroke-opacity='.022'/%3E%3C/svg%3E")
+      center top / 100% auto repeat-y,
+    linear-gradient(180deg, #27324b 0%, var(--navy-800) 22%, var(--navy-900) 70%, var(--navy-950) 100%);
+}
+
+/* 〈달〉 — 프롤로그 오른쪽 위의 은은한 달과 달무리 */
+.prologue {
+  background:
+    radial-gradient(circle at 86% 64px, transparent 47px, rgba(227, 187, 130, 0.09) 48px, transparent 49.5px) no-repeat,
+    radial-gradient(circle at 86% 64px, rgba(243, 220, 180, 0.10) 0, rgba(243, 220, 180, 0.07) 24px, rgba(243, 220, 180, 0.025) 26px, transparent 90px) no-repeat;
+}
+
+/* 〈Piscinas das Marés〉 — 시각예술 섹션 오른쪽 아래 물결 동심원 */
+.collab {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200' fill='none' stroke='%23e3bb82' stroke-width='1'%3E%3Cellipse cx='150' cy='100' rx='40' ry='14' stroke-opacity='.10'/%3E%3Cellipse cx='150' cy='100' rx='80' ry='28' stroke-opacity='.075'/%3E%3Cellipse cx='150' cy='100' rx='120' ry='42' stroke-opacity='.05'/%3E%3Cellipse cx='150' cy='100' rx='160' ry='56' stroke-opacity='.03'/%3E%3C/svg%3E")
+      right -90px bottom -40px / 300px auto no-repeat;
+}
+
+/* 〈오선지〉 — 프로그램 섹션 위·아래에 옅은 다섯 줄 */
+.program {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='60' viewBox='0 0 480 60'%3E%3Cdefs%3E%3ClinearGradient id='f' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23e4e9f2' stop-opacity='0'/%3E%3Cstop offset='.5' stop-color='%23e4e9f2' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='%23e4e9f2' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='url(%23f)' stroke-width='1'%3E%3Cpath d='M0 12H480M0 21H480M0 30H480M0 39H480M0 48H480'/%3E%3C/g%3E%3C/svg%3E")
+      center 118px / 100% auto no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='60' viewBox='0 0 480 60'%3E%3Cdefs%3E%3ClinearGradient id='f' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23e4e9f2' stop-opacity='0'/%3E%3Cstop offset='.5' stop-color='%23e4e9f2' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='%23e4e9f2' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='url(%23f)' stroke-width='1'%3E%3Cpath d='M0 12H480M0 21H480M0 30H480M0 39H480M0 48H480'/%3E%3C/g%3E%3C/svg%3E")
+      center bottom 24px / 100% auto no-repeat;
+}
+
+/* 〈나전칠기〉 — 감상 포인트 번호에 자개빛 광택 */
+.hl__no {
+  background: linear-gradient(120deg, #f3dcb4 0%, #c9d6ee 28%, #e6cbe0 46%, #bfe2da 64%, #f3dcb4 82%, #c9d6ee 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.95;
+  animation: shimmer 9s ease-in-out infinite;
+}
+
 /* 매우 좁은 화면 */
 @media (max-width: 350px) {
   .section { padding: 68px 20px; }
