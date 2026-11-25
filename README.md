@@ -34,6 +34,6 @@ git push
 
 ## 추후 입력할 정보
 
-- 공연 장소 / 주소 / 지도 링크 → `index.html`의 `오시는 길` 섹션 (TODO 주석)
 - 세부 곡목·연주자
+- 작곡가 이원희 프로필
 - 카카오톡 미리보기가 갱신되지 않으면 [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 캐시 초기화

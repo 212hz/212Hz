@@ -59,6 +59,27 @@
     reveals.forEach((el) => el.classList.add("is-visible"));
   }
 
+  /* ---------- 작가 노트 펼치기 ---------- */
+  const essay = document.getElementById("essay");
+  const essayBtn = document.getElementById("essay-toggle");
+  if (essay && essayBtn) {
+    essay.classList.add("is-collapsed"); // JS가 없으면 처음부터 전체 노출
+    essayBtn.addEventListener("click", () => {
+      const open = essay.classList.contains("is-collapsed");
+      if (open) {
+        essay.style.maxHeight = essay.scrollHeight + "px";
+        essay.classList.remove("is-collapsed");
+        essayBtn.textContent = "접기";
+      } else {
+        essay.style.maxHeight = "";
+        essay.classList.add("is-collapsed");
+        essayBtn.textContent = "작가 노트 전체 보기";
+        essay.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      essayBtn.setAttribute("aria-expanded", String(open));
+    });
+  }
+
   /* ---------- 공유 / 링크 복사 ---------- */
   const toast = document.getElementById("toast");
   let toastTimer;
@@ -69,21 +90,23 @@
     toastTimer = setTimeout(() => toast.classList.remove("is-on"), 2200);
   };
 
-  const copyLink = async () => {
-    const url = location.href.split("#")[0];
+  const copyText = async (text, msg) => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(text);
     } catch {
       const ta = document.createElement("textarea");
-      ta.value = url; ta.setAttribute("readonly", "");
+      ta.value = text; ta.setAttribute("readonly", "");
       ta.style.position = "fixed"; ta.style.opacity = "0";
       document.body.appendChild(ta); ta.select();
       document.execCommand("copy"); ta.remove();
     }
-    showToast("링크가 복사되었습니다");
+    showToast(msg);
   };
+  const copyLink = () => copyText(location.href.split("#")[0], "링크가 복사되었습니다");
 
   document.getElementById("btn-copy")?.addEventListener("click", copyLink);
+  const addrBtn = document.getElementById("btn-addr");
+  addrBtn?.addEventListener("click", () => copyText(addrBtn.dataset.addr, "주소가 복사되었습니다"));
   document.getElementById("btn-share")?.addEventListener("click", async () => {
     const data = {
       title: "211Hz · 작곡가 이원희 작품발표회",

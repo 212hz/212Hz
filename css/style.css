@@ -431,6 +431,122 @@ img { display: block; max-width: 100%; }
   color: #fff;
 }
 
+/* 작가 프로필 */
+.profile {
+  grid-column: 1 / -1;
+  margin-top: 26px;
+  padding: 24px 20px;
+  text-align: left;
+  border: 1px solid rgba(228, 233, 242, 0.12);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--silver-dim);
+}
+.profile__name {
+  margin: 0 0 12px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #fff;
+}
+.profile__name span {
+  margin-left: 6px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-soft);
+}
+.profile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.profile__edu li {
+  position: relative;
+  padding-left: 12px;
+}
+.profile__edu li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.85em;
+  width: 4px; height: 1px;
+  background: var(--gold);
+}
+.profile__label {
+  margin: 16px 0 6px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold-soft);
+}
+.profile__shows li { display: flex; gap: 10px; }
+.profile__shows .yr {
+  flex: none;
+  font-family: var(--serif-en);
+  font-size: 1.02em;
+  color: var(--slate-300);
+}
+.profile__shows small { color: var(--slate-300); }
+.profile__etc {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(228, 233, 242, 0.1);
+  font-size: 0.84rem;
+}
+
+/* ---------------- ARTIST'S NOTE ---------------- */
+.essay__title {
+  margin: -14px 0 28px;
+  font-size: 1.12rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+.essay {
+  position: relative;
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--silver-dim);
+  overflow: hidden;
+  transition: max-height 0.9s ease;
+}
+.essay p { margin: 0 0 1.2em; }
+.essay p:first-child::first-letter {
+  /* 첫 글자 금빛 강조 */
+  float: left;
+  margin: 0.12em 0.12em 0 0;
+  font-size: 2.6em;
+  line-height: 0.9;
+  color: var(--gold-soft);
+}
+.essay em {
+  font-family: var(--serif-en);
+  font-size: 1.08em;
+  color: var(--silver);
+}
+.essay .term {
+  font-weight: 600;
+  color: var(--gold-soft);
+}
+.essay__sign {
+  margin-top: 1.8em !important;
+  text-align: right;
+  font-size: 0.88rem;
+  color: var(--slate-300);
+}
+/* 접힌 상태: 아래로 번지며 사라지는 처리 */
+.essay.is-collapsed {
+  max-height: 15.5em;
+  -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+}
+.essay__toggle { margin-top: 18px; }
+.essay__toggle[hidden] { display: none; }
+
 /* ---------------- WHERE ---------------- */
 .venue {
   margin: 0 0 8px;
@@ -443,11 +559,48 @@ img { display: block; max-width: 100%; }
   font-size: 0.9rem;
   color: var(--silver-dim);
 }
+.venue-en {
+  margin-left: 4px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.05em;
+  color: var(--gold-soft);
+}
+.venue-sub {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--slate-300);
+}
+.venue-sub a { color: inherit; }
 .map-links {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 24px;
+}
+.map-links .btn { min-width: 0; padding: 10px 16px; font-size: 0.85rem; }
+.directions {
+  max-width: 340px;
+  margin: 30px auto 0;
+  text-align: left;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+.directions > div {
+  display: grid;
+  grid-template-columns: 3.6em 1fr;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(228, 233, 242, 0.1);
+}
+.directions dt {
+  color: var(--gold-soft);
+  font-weight: 400;
+}
+.directions dd {
+  margin: 0;
+  color: var(--silver-dim);
 }
 
 /* ---------------- BUTTON / SHARE ---------------- */
