@@ -1229,11 +1229,16 @@ strong { font-weight: 600; }
   border: 1px solid rgba(227, 187, 130, 0.3);
 }
 .collab__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+/* 사진 + 바로 아래 'Visual Art · 시각예술' 표시 */
+.collab__side { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.collab__side .collab__photo { width: 100%; }
 .collab__role {
   margin: 0;
+  text-align: center;
   font-family: var(--serif-en);
   font-style: italic;
   font-size: 0.8rem;
+  line-height: 1.35;
   color: var(--gold);
 }
 .collab__name {
