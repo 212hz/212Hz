@@ -1067,27 +1067,47 @@ strong { font-weight: 600; }
   font-size: 0.95rem;
   color: var(--gold);
 }
-.program__list .name {
-  font-size: 1.1rem;
-  font-weight: 400;
+.program__list { max-width: 360px; }
+.pg__title {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: #fff;
 }
-.program__list .name.en {
+.pg__title.en {
   font-family: var(--serif-en);
   font-style: italic;
-  font-size: 1.35rem;
-  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
 }
-.program__list .tag {
-  grid-column: 2;
-  margin-top: 2px;
+.pg__inst {
+  margin: 2px 0 8px;
   font-family: var(--serif-en);
   font-style: italic;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
+  color: var(--gold);
+}
+.pg__inst .tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 8px;
+  border: 1px solid rgba(227, 187, 130, 0.45);
+  border-radius: 999px;
+  font-size: 0.78rem;
   color: var(--gold-soft);
 }
-.program__list .is-feature .name { text-shadow: 0 0 16px rgba(255, 210, 150, 0.35); }
-.note {
+.pg__desc {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.85;
+  color: var(--silver-dim);
+}
+.program__list .is-feature .pg__title { text-shadow: 0 0 16px rgba(255, 210, 150, 0.35); }
+.program__list .no { padding-top: 0.35em; }
+.program__list li { align-items: start; padding: 20px 4px; }
+.hl .en-i { font-family: var(--serif-en); font-size: 1.1em; color: var(--silver); }.note {
   margin: 26px 0 0;
   font-size: 0.8rem;
   color: var(--slate-300);
