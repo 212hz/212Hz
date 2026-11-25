@@ -28,9 +28,13 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html css js assets _site/
-          # 배포 시점 버전을 붙여 브라우저/카카오톡 캐시로 옛 화면이 보이는 것을 방지
-          VER=$(date +%Y%m%d%H%M)
+          # 배포 버전 = 커밋 ID. CSS/JS 주소에 붙여 캐시를 무효화하고,
+          # version.json 으로 열려 있는 초대장이 새 배포를 감지해 자동 새로고침하게 함
+          VER="${GITHUB_SHA::7}"
           sed -i "s#css/style.css#css/style.css?v=${VER}#; s#js/main.js#js/main.js?v=${VER}#" _site/index.html
+          sed -i "s#<meta name=\"build\" content=\"dev\" />#<meta name=\"build\" content=\"${VER}\" />#" _site/index.html
+          echo "{\"build\":\"${VER}\"}" > _site/version.json
+          grep -q "content=\"${VER}\"" _site/index.html || { echo "build meta 치환 실패"; exit 1; }
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5

@@ -5,6 +5,40 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (id) => document.getElementById(id);
 
+  /* ---------- 실시간 업데이트 ----------
+     배포본: 1분마다 + 화면 복귀 시 version.json 확인 → 새 배포면 캐시를 건너뛰는 주소로 새로고침
+     로컬 미리보기(tools/preview.py): 파일 저장 즉시 새로고침 */
+  const BUILD = document.querySelector('meta[name="build"]')?.content || "dev";
+  const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  if (BUILD !== "dev") {
+    const check = async () => {
+      if (document.hidden) return;
+      try {
+        const res = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
+        if (!res.ok) return;
+        const { build } = await res.json();
+        if (build && build !== BUILD && sessionStorage.getItem("212hz-reloaded") !== build) {
+          sessionStorage.setItem("212hz-reloaded", build); // 같은 버전으로 반복 새로고침 방지
+          showToast("새로운 내용으로 업데이트합니다");
+          const url = new URL(location.href);
+          url.searchParams.set("v", build);                 // 새 주소 → CDN·브라우저 캐시 우회
+          setTimeout(() => location.replace(url.toString()), 900);
+        }
+      } catch { /* 오프라인 등은 무시 */ }
+    };
+    setInterval(check, 60000);
+    document.addEventListener("visibilitychange", check);
+  } else if (isLocal) {
+    let stamp = null;
+    setInterval(async () => {
+      try {
+        const s = await (await fetch("/__stamp", { cache: "no-store" })).text();
+        if (stamp && s !== stamp) location.reload();
+        stamp = s;
+      } catch { /* 서버 재시작 중 */ }
+    }, 800);
+  }
+
   /* ---------- 오프닝 인트로 ---------- */
   const intro = $("intro");
   if (intro) {
