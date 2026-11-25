@@ -1063,6 +1063,36 @@ strong { font-weight: 600; }
 .program__list .is-feature .pg__title { text-shadow: 0 0 16px rgba(255, 210, 150, 0.35); }
 .program__list .no { padding-top: 0.35em; }
 .program__list li { align-items: start; padding: 20px 4px; }
+/* 프로그램 접기: 번호·곡명·편성만 보이고, 누르면 곡 소개 */
+.program__list li.pg { display: block; padding: 0; }
+.pg__fold > summary {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.6em 1fr;
+  align-items: start;
+  padding: 16px 26px 16px 4px;
+  list-style: none;
+  cursor: pointer;
+}
+.pg__fold > summary::-webkit-details-marker { display: none; }
+.pg__fold > summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px; top: 18px;
+  font-family: var(--serif-en);
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--gold);
+  transition: transform 0.4s var(--ease-out);
+}
+.pg__fold[open] > summary::after { transform: rotate(45deg); }
+.pg__head { display: block; }
+.pg__head .pg__inst { display: block; margin-bottom: 0; }
+.pg__fold .pg__desc {
+  padding: 0 6px 18px calc(2.6rem + 4px);
+  animation: fadeBlur 0.6s var(--ease-out);
+}
+.program .note { margin-top: 14px; }
 .hl .en-i { font-family: var(--serif-en); font-size: 1.1em; color: var(--silver); }.note {
   margin: 26px 0 0;
   font-size: 0.8rem;

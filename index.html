@@ -223,57 +223,64 @@
     <!-- 7. 프로그램 -->
     <section class="section program reveal" aria-labelledby="program-title">
       <h2 id="program-title" class="sec-title"><span>Program</span>프로그램</h2>
-      <!-- 곡 추가/수정: <li class="pg"> 블록 하나가 한 곡입니다 (번호·제목·편성·소개) -->
+      <!-- 곡 추가/수정: <li class="pg"> 블록 하나가 한 곡입니다 (번호·제목·편성은 항상 보이고, 소개는 눌러서 펼침) -->
       <ol class="program__list stagger">
         <li class="pg">
-          <span class="no">I</span>
-          <div class="pg__body">
-            <h3 class="pg__title en">Finding Myself Again</h3>
-            <p class="pg__inst">Piano Trio</p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">I</span>
+              <span class="pg__head"><h3 class="pg__title en">Finding Myself Again</h3><span class="pg__inst">Piano Trio</span></span>
+            </summary>
             <p class="pg__desc">지난 시간의 기억과 상처를 품은 채 다시 자신을 찾아가는 오디세우스의 내면적 여정을 담아냈다.</p>
-          </div>
+          </details>
         </li>
         <li class="pg">
-          <span class="no">II</span>
-          <div class="pg__body">
-            <h3 class="pg__title">파놉티콘</h3>
-            <p class="pg__inst">Trumpet Solo</p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">II</span>
+              <span class="pg__head"><h3 class="pg__title">파놉티콘</h3><span class="pg__inst">Trumpet Solo</span></span>
+            </summary>
             <p class="pg__desc">파놉티콘을 모티브로 감시자와 피감시자 사이의 모호한 경계와 권력 관계를 담아냈다.</p>
-          </div>
+          </details>
         </li>
         <li class="pg">
-          <span class="no">III</span>
-          <div class="pg__body">
-            <h3 class="pg__title">달</h3>
-            <p class="pg__inst">Tenor, Piano</p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">III</span>
+              <span class="pg__head"><h3 class="pg__title">달</h3><span class="pg__inst">Tenor, Piano</span></span>
+            </summary>
             <p class="pg__desc">독립운동가 신채호의 삶을 배경으로, 그리운 아내를 향한 애틋한 마음과 조국의 독립을 향한 간절한 염원을 달이라는 상징적 매개체를 통해 담아냈다.</p>
-          </div>
+          </details>
         </li>
         <li class="pg">
-          <span class="no">IV</span>
-          <div class="pg__body">
-            <h3 class="pg__title">나전칠기</h3>
-            <p class="pg__inst">Piano Solo</p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">IV</span>
+              <span class="pg__head"><h3 class="pg__title">나전칠기</h3><span class="pg__inst">Piano Solo</span></span>
+            </summary>
             <p class="pg__desc">나전칠기의 제작 과정을 모티브로, 겹겹이 쌓이는 시간의 흔적과 자개가 만들어내는 빛의 아름다움을 음악적으로 담아냈다.</p>
-          </div>
+          </details>
         </li>
         <li class="pg is-feature">
-          <span class="no">V</span>
-          <div class="pg__body">
-            <h3 class="pg__title en">Piscinas das Marés</h3>
-            <p class="pg__inst">String Quartet <span class="tag">with Visual Art · 임채은</span></p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">V</span>
+              <span class="pg__head"><h3 class="pg__title en">Piscinas das Marés</h3><span class="pg__inst">String Quartet <span class="tag">with Visual Art · 임채은</span></span></span>
+            </summary>
             <p class="pg__desc">건축가 알바루 시자가 설계한 바닷가의 수영장을 모티브로, 끊임없이 변화하는 바다의 움직임과 자연과 인공의 경계에서 피어나는 아름다움을 현악기의 다양한 보잉과 음색을 통해 담아냈다.</p>
-          </div>
+          </details>
         </li>
         <li class="pg">
-          <span class="no">VI</span>
-          <div class="pg__body">
-            <h3 class="pg__title">눈맞춤</h3>
-            <p class="pg__inst">Tenor, Piano</p>
+          <details class="pg__fold">
+            <summary>
+              <span class="no">VI</span>
+              <span class="pg__head"><h3 class="pg__title">눈맞춤</h3><span class="pg__inst">Tenor, Piano</span></span>
+            </summary>
             <p class="pg__desc">사랑하는 사람과 눈을 맞추는 순간의 설렘과 함께하고 싶은 마음, 그리고 깊어가는 그리움을 담아냈다.</p>
-          </div>
+          </details>
         </li>
       </ol>
+      <p class="note">곡명을 누르면 곡 소개를 볼 수 있습니다.</p>
     </section>
 
     <!-- 8. 연주자 -->
