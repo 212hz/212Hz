@@ -76,7 +76,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- 211Hz 파형 + 톤 ---------- */
+  /* ---------- 212Hz 파형 + 톤 ---------- */
   const waveCanvas = $("tone-wave");
   const toneBtn = $("tone-btn");
   let amp = 0.35;          // 현재 진폭 (0~1)
@@ -97,9 +97,9 @@
         wctx.clearRect(0, 0, ww, wh);
         const mid = wh / 2;
         const layers = [
-          { k: 2.11, a: 1, c: "rgba(243, 220, 180, 0.95)", w: 1.4, blur: 10 },
-          { k: 2.11, a: 0.6, c: "rgba(228, 233, 242, 0.55)", w: 1, blur: 0, off: 1.2 },
-          { k: 4.22, a: 0.3, c: "rgba(227, 187, 130, 0.4)", w: 0.8, blur: 0, off: 2.4 },
+          { k: 2.12, a: 1, c: "rgba(243, 220, 180, 0.95)", w: 1.4, blur: 10 },
+          { k: 2.12, a: 0.6, c: "rgba(228, 233, 242, 0.55)", w: 1, blur: 0, off: 1.2 },
+          { k: 4.24, a: 0.3, c: "rgba(227, 187, 130, 0.4)", w: 0.8, blur: 0, off: 2.4 },
         ];
         for (const L of layers) {
           wctx.beginPath();
@@ -141,7 +141,7 @@
       playing = null;
       ampTarget = 0.35;
       toneBtn.setAttribute("aria-pressed", "false");
-      label.textContent = "211Hz 들어보기";
+      label.textContent = "212Hz 들어보기";
     };
     toneBtn.addEventListener("click", async () => {
       if (playing) { stop(); return; }
@@ -152,8 +152,8 @@
       gain.gain.setValueAtTime(0, t);
       gain.gain.linearRampToValueAtTime(0.16, t + 1.4);  // 부드럽게 시작
       gain.connect(actx.destination);
-      // 기음 211Hz + 은은한 배음
-      const oscs = [[211, 1], [422, 0.18], [633, 0.06]].map(([f, g]) => {
+      // 기음 212Hz + 은은한 배음
+      const oscs = [[212, 1], [424, 0.18], [636, 0.06]].map(([f, g]) => {
         const o = actx.createOscillator();
         const og = actx.createGain();
         o.type = "sine"; o.frequency.value = f; og.gain.value = g;
@@ -163,7 +163,7 @@
       playing = { gain, oscs };
       ampTarget = 1;
       toneBtn.setAttribute("aria-pressed", "true");
-      label.textContent = "211Hz 울리는 중";
+      label.textContent = "212Hz 울리는 중";
       const mine = playing;
       setTimeout(() => { if (playing === mine) stop(); }, 6000);
     });
@@ -228,21 +228,21 @@
   /* ---------- 캘린더 저장 (.ics) ---------- */
   $("btn-ics")?.addEventListener("click", () => {
     const ics = [
-      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//211Hz//Invitation//KO", "CALSCALE:GREGORIAN",
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//212Hz//Invitation//KO", "CALSCALE:GREGORIAN",
       "BEGIN:VEVENT",
       "UID:211hz-20261210@211hz.github.io",
       "DTSTAMP:20261201T000000Z",
       "DTSTART:20261210T103000Z",
       "DTEND:20261210T123000Z",
-      "SUMMARY:211Hz · 작곡가 이원희 작품발표회",
-      "DESCRIPTION:현대음악과 가곡을 만나다 — 낯섦과 익숙함\\n시각예술 임채은\\nhttps://211hz.github.io/211Hz/",
+      "SUMMARY:212Hz · 작곡가 이원희 작품발표회",
+      "DESCRIPTION:작곡가 이원희 작품발표회\\n현대음악과 가곡을 만나다 — 낯섦과 익숙함\\nhttps://211hz.github.io/211Hz/",
       "LOCATION:엘클래식\\, 대전 유성구 테크노중앙로 50 디티비안S C동 4층",
-      "BEGIN:VALARM", "TRIGGER:-PT3H", "ACTION:DISPLAY", "DESCRIPTION:211Hz 공연 3시간 전", "END:VALARM",
+      "BEGIN:VALARM", "TRIGGER:-PT3H", "ACTION:DISPLAY", "DESCRIPTION:212Hz 공연 3시간 전", "END:VALARM",
       "END:VEVENT", "END:VCALENDAR",
     ].join("\r\n");
     const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
     const a = document.createElement("a");
-    a.href = url; a.download = "211Hz-concert.ics";
+    a.href = url; a.download = "212Hz-concert.ics";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
     showToast("캘린더 파일을 저장했습니다");
@@ -296,7 +296,7 @@
   addrBtn?.addEventListener("click", () => copyText(addrBtn.dataset.addr, "주소가 복사되었습니다"));
   $("btn-share")?.addEventListener("click", async () => {
     const data = {
-      title: "211Hz · 작곡가 이원희 작품발표회",
+      title: "212Hz · 작곡가 이원희 작품발표회",
       text: "현대음악과 가곡을 만나다 — 2026. 12. 10 Thu. 19:30 · 대전 엘클래식",
       url: pageUrl(),
     };
