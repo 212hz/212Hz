@@ -1278,6 +1278,16 @@ body::after {
   padding: 0 6px 18px calc(2.6rem + 4px);
   animation: fadeBlur 0.6s var(--ease-out);
 }
+/* 곡 소개 첫머리의 한 줄 시구 */
+.pg__verse {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+  color: var(--gold-soft);
+}
 .program .note { margin-top: 14px; }
 .hl .en-i { font-family: var(--serif-en); font-size: 1.1em; color: var(--silver); }.note {
   margin: 26px 0 0;
@@ -1667,6 +1677,265 @@ body::after {
   font-style: italic;
   font-size: 1.6rem;
   color: var(--silver-dim);
+}
+
+/* =========================================================
+   EPILOGUE — 나눔 (원본: images/남김말_이미지.png)
+   밤(네이비)이 끝나고 새벽빛(라벤더 → 크림)으로 밝아지며 끝남.
+   집 모양 금빛 테두리 = 한국해비타트, 불 켜지는 창 = 희망
+   ========================================================= */
+.epilogue {
+  --ink: #2a2f47;
+  --ink-soft: #4b5068;
+  --amber: #a5622a;
+  --amber-metal: linear-gradient(115deg, #8f5524 0%, #c98c45 35%, #e2b06a 50%, #b8762f 70%, #8f5524 100%);
+  padding: 96px 22px 0;
+  background:
+    linear-gradient(180deg,
+      rgba(13, 19, 32, 0) 0%,
+      #1b2440 3%,
+      #3d4d74 7%,
+      #6a789e 11%,
+      #a9abc6 16%,
+      #d6cdd5 23%,
+      #ebe1dc 34%,
+      #f1e7e0 70%,
+      #e2d9d7 100%);
+}
+/* 섹션 구분선은 밤 영역에 그대로 */
+.epi__house {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 64px 18px 34px;
+  color: var(--ink);
+  background: radial-gradient(52% 50% at 50% 50%, rgba(255, 250, 240, 0.92), rgba(255, 246, 234, 0.55) 60%, rgba(255, 246, 234, 0) 100%);
+}
+/* 지붕: 금빛 선이 양쪽 처마에서 꼭대기로 그려짐 */
+.epi__roof {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 56px;
+  overflow: visible;
+}
+.epi__roof path {
+  fill: none;
+  stroke: #d9b277;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 6px rgba(255, 220, 160, 0.9));
+}
+/* 벽: 처마에서 아래로 흐려지는 금빛 세로선 */
+.epi__house::before,
+.epi__house::after {
+  content: "";
+  position: absolute;
+  top: 56px;
+  width: 1.4px;
+  height: 62%;
+  background: linear-gradient(180deg, #d9b277, rgba(217, 178, 119, 0));
+  box-shadow: 0 0 6px rgba(255, 220, 160, 0.6);
+  transform-origin: top;
+}
+.epi__house::before { left: 0; }
+.epi__house::after { right: 0; }
+/* 지붕: 처마(아래)에서 꼭대기로 차오르듯 그려짐 */
+.js .epilogue .epi__roof { clip-path: inset(100% 0 0 0); transition: clip-path 2.2s var(--ease-silk) 0.3s; }
+.js .epilogue.is-visible .epi__roof { clip-path: inset(-20% -5% -5% -5%); }
+.js .epilogue .epi__house::before,
+.js .epilogue .epi__house::after { transform: scaleY(0); transition: transform 2s var(--ease-luxe) 1.6s; }
+.js .epilogue.is-visible .epi__house::before,
+.js .epilogue.is-visible .epi__house::after { transform: scaleY(1); }
+
+/* 꼭대기 오른쪽 아치 창 — 불이 켜지듯 밝아짐 */
+.epi__window {
+  position: absolute;
+  top: 14px;
+  right: 25%;
+  width: 26px;
+  height: 30px;
+  border-radius: 13px 13px 2px 2px;
+  background:
+    linear-gradient(90deg, transparent 47%, rgba(140, 95, 40, 0.55) 47%, rgba(140, 95, 40, 0.55) 53%, transparent 53%),
+    linear-gradient(180deg, transparent 55%, rgba(140, 95, 40, 0.55) 55%, rgba(140, 95, 40, 0.55) 60%, transparent 60%),
+    radial-gradient(circle at 50% 60%, #fffaf0, #ffe2ad 70%, #f2c27a);
+  box-shadow: 0 0 18px 6px rgba(255, 214, 150, 0.7), 0 0 50px 16px rgba(255, 214, 150, 0.35);
+}
+.js .epilogue .epi__window { filter: brightness(0.45) saturate(0.4); box-shadow: none; transition: filter 1.4s ease 2.2s, box-shadow 1.8s ease 2.2s; }
+.js .epilogue.is-visible .epi__window {
+  filter: none;
+  box-shadow: 0 0 18px 6px rgba(255, 214, 150, 0.7), 0 0 50px 16px rgba(255, 214, 150, 0.35);
+  animation: windowGlow 4.5s ease-in-out 4s infinite;
+}
+@keyframes windowGlow {
+  0%, 100% { box-shadow: 0 0 18px 6px rgba(255, 214, 150, 0.7), 0 0 50px 16px rgba(255, 214, 150, 0.35); }
+  50% { box-shadow: 0 0 24px 9px rgba(255, 214, 150, 0.85), 0 0 70px 24px rgba(255, 214, 150, 0.45); }
+}
+
+/* 머리말: 212Hz · 현대음악과 가곡을 만나다 —— EPILOGUE */
+.epi__head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  align-items: end;
+  margin: 0 0 22px;
+  text-align: left;
+}
+.epi__logo {
+  grid-column: 1;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 1.7rem;
+  line-height: 1;
+  background: linear-gradient(115deg, #7a4519 0%, #b7783a 45%, #d49a52 55%, #8f5524 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.epi__logo em { font-style: italic; }
+.epi__sub { grid-column: 1; grid-row: 2; margin-top: 4px; font-size: 0.68rem; letter-spacing: 0.02em; color: var(--ink-soft); white-space: nowrap; }
+.epi__tag {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--serif-en);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.epi__tag::before { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(42, 47, 71, 0.45)); }
+
+.epi__icon { display: block; width: 64px; height: 26px; margin: 0 auto 6px; }
+.epi__icon path { stroke: #8f5a26; stroke-width: 1.3; }
+.epi__icon rect { fill: #3a3d52; }
+
+.epi__title {
+  margin: 0;
+  font-size: clamp(1.1rem, 5.4vw, 1.55rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.epi__title b { font-weight: 600; }
+.epi__title strong {
+  font-size: 1.32em;
+  font-weight: 600;
+  background: var(--amber-metal);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s ease-in-out infinite;
+}
+.epi__orn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 22px;
+  color: #2f3349;
+  font-size: 0.8rem;
+}
+.epi__orn::before,
+.epi__orn::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(42, 47, 71, 0.45)); }
+.epi__orn::after { background: linear-gradient(90deg, rgba(42, 47, 71, 0.45), transparent); }
+
+.epi__quote { position: relative; margin: 0; padding: 0 8px; }
+.epi__quote p {
+  margin: 0;
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.85;
+  color: #33374e;
+}
+.epi__quote::before,
+.epi__quote::after {
+  position: absolute;
+  font-family: var(--serif-en);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--amber);
+  opacity: 0.6;
+}
+.epi__quote::before { content: "\201C"; left: 0; top: -8px; }
+.epi__quote::after { content: "\201D"; right: 0; bottom: -18px; }
+
+/* 인용구 아래 금빛 곡선 — 왼쪽에서 오른쪽으로 그려짐 */
+.epi__swoosh { display: block; width: 82%; height: 24px; margin: 10px auto 22px; overflow: visible; }
+.epi__swoosh path { fill: none; stroke: #9a6330; stroke-width: 1.3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.js .epilogue .epi__swoosh path { stroke-dashoffset: 1; transition: stroke-dashoffset 2s var(--ease-silk) 2s; }
+.js .epilogue.is-visible .epi__swoosh path { stroke-dashoffset: 0; }
+
+.epi__give { margin: 0 0 18px; font-size: 0.95rem; line-height: 1.85; color: var(--ink); }
+.epi__give strong { font-weight: 600; color: var(--amber); }
+.epi__ask { margin: 0 0 26px; font-size: 0.86rem; line-height: 1.9; color: var(--ink-soft); }
+.epi__sign { display: flex; align-items: center; gap: 14px; margin: 0; font-size: 0.86rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.epi__sign::before,
+.epi__sign::after { content: ""; flex: 1; height: 1px; background: rgba(42, 47, 71, 0.4); }
+.epi__sign b { margin-left: 4px; font-weight: 600; color: var(--ink); }
+
+/* 무대: 피아노 · 유리 기둥 · 빛 입자 — 위쪽은 배경으로 스며듦 */
+.epi__stage {
+  position: relative;
+  margin: -40px -22px 0;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 34%);
+}
+.epi__stage img { width: 100%; height: auto; }
+.js .epi__stage img { transform: scale(1.06); transition: transform 3s var(--ease-luxe) 0.6s; }
+.js .epilogue.is-visible .epi__stage img { transform: none; }
+.epi__motes { position: absolute; inset: 0; pointer-events: none; }
+.epi__motes i {
+  position: absolute;
+  bottom: 22%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6e2, rgba(255, 206, 140, 0));
+  box-shadow: 0 0 8px rgba(255, 214, 150, 0.9);
+  opacity: 0;
+  animation: rise 7s ease-in infinite;
+}
+.epi__motes i:nth-child(1) { left: 12%; animation-delay: 0s; }
+.epi__motes i:nth-child(2) { left: 24%; animation-delay: 2.4s; }
+.epi__motes i:nth-child(3) { left: 37%; animation-delay: 4.1s; }
+.epi__motes i:nth-child(4) { left: 52%; animation-delay: 1.2s; }
+.epi__motes i:nth-child(5) { left: 63%; animation-delay: 5.3s; }
+.epi__motes i:nth-child(6) { left: 72%; animation-delay: 3.2s; }
+.epi__motes i:nth-child(7) { left: 83%; animation-delay: 0.7s; }
+.epi__motes i:nth-child(8) { left: 92%; animation-delay: 4.8s; }
+@keyframes rise {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(14px, -170px, 0) scale(1.2); }
+}
+
+/* 저작권 표시: 꼬리말 맨 아래 아주 작게 */
+.footer__copy {
+  margin: 22px 0 0;
+  font-family: var(--serif-en);
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+}
+.footer__copy small { font-size: 0.68rem; }
+
+/* 에필로그 다음 꼬리말: 무대 그림 바닥색(푸른 바닥)에서 밤으로 */
+.epilogue + .footer {
+  padding-top: 30px;
+  background: linear-gradient(180deg, #56698d 0%, #34415f 40%, var(--navy-950) 100%);
+  color: rgba(228, 233, 242, 0.7);
+}
+
+@media (max-width: 350px) {
+  .epilogue { padding-left: 14px; padding-right: 14px; }
+  .epi__house { padding-left: 12px; padding-right: 12px; }
+  .epi__stage { margin-left: -14px; margin-right: -14px; }
+  .epi__give br, .epi__ask br { display: none; }
 }
 
 /* =========================================================
