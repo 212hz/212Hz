@@ -675,17 +675,18 @@ strong { font-weight: 600; }
   transition: background 0.4s ease;
 }
 .crew__row summary::-webkit-details-marker { display: none; }
+/* 접기 표시: 아래 꺾쇠(⌄) → 펼치면 위 꺾쇠(⌃) — 위 .fold 버튼과 같은 모양 */
 .crew__row summary::after {
-  content: "+";
+  content: "";
   position: absolute;
-  right: 4px; top: 13px;
-  font-family: var(--serif-en);
-  font-size: 1.05rem;
-  line-height: 1;
-  color: var(--gold);
+  right: 7px; top: 17px;
+  width: 7px; height: 7px;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  transform: rotate(45deg);
   transition: transform 0.4s var(--ease-out);
 }
-.crew__row[open] summary::after { transform: rotate(45deg); }
+.crew__row[open] summary::after { transform: translateY(4px) rotate(-135deg); }
 .crew__row[open] summary,
 .crew__row summary:hover { background: linear-gradient(90deg, rgba(227, 187, 130, 0.07), transparent); }
 .crew__ens {
@@ -1075,17 +1076,18 @@ strong { font-weight: 600; }
   cursor: pointer;
 }
 .pg__fold > summary::-webkit-details-marker { display: none; }
+/* 접기 표시: 아래 꺾쇠(⌄) → 펼치면 위 꺾쇠(⌃) — 연주자 목록과 같은 모양 */
 .pg__fold > summary::after {
-  content: "+";
+  content: "";
   position: absolute;
-  right: 4px; top: 18px;
-  font-family: var(--serif-en);
-  font-size: 1.05rem;
-  line-height: 1;
-  color: var(--gold);
+  right: 7px; top: 22px;
+  width: 7px; height: 7px;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  transform: rotate(45deg);
   transition: transform 0.4s var(--ease-out);
 }
-.pg__fold[open] > summary::after { transform: rotate(45deg); }
+.pg__fold[open] > summary::after { transform: translateY(4px) rotate(-135deg); }
 .pg__head { display: block; }
 .pg__head .pg__inst { display: block; margin-bottom: 0; }
 .pg__fold .pg__desc {
