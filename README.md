@@ -12,6 +12,9 @@
 index.html                  초대장 본문 (모든 문구는 여기)
 css/style.css               스타일 (섹션별 주석 블록으로 구분)
 js/main.js                  인트로, 스크롤 효과, 파형, 달력·카운트다운, 캘린더 저장, 공유, 눈 효과
+tools/preview.py            로컬 실시간 미리보기 서버
+tools/shot.mjs              휴대폰 크기 화면 캡처 (작업 확인용, Edge 자동 종료)
+CLAUDE.md                   Claude 작업 지침 (캡처 후 프로세스 정리 · 배포 계정)
 assets/img/                 웹용 이미지 (poster-212.jpg, composer-*.jpg, artist-*.jpg)
 images/                     원본 이미지 (배포되지 않음)
 .github/workflows/deploy.yml  자동 배포 (push → GitHub Pages, 일시 오류 시 1회 재시도)
