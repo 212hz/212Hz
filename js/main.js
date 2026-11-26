@@ -54,12 +54,32 @@
         intro.classList.add("is-done");
         document.body.classList.remove("is-locked");
         sessionStorage.setItem("211hz-intro", "1");
-        setTimeout(() => intro.remove(), 1500);
+        setTimeout(() => intro.remove(), 1700);
       };
       intro.addEventListener("click", close);
       setTimeout(close, 3600);
     }
   }
+
+  /* ---------- 섹션 영문 제목: 글자별 등장용으로 나눔 ---------- */
+  document.querySelectorAll(".sec-title > span").forEach((el) => {
+    const text = el.textContent;
+    el.textContent = "";
+    const sr = document.createElement("span");   // 화면 낭독기용 원문
+    sr.className = "sr";
+    sr.textContent = text;
+    el.appendChild(sr);
+    let c = 0;
+    for (const ch of text) {
+      if (ch === " ") { el.appendChild(document.createTextNode(" ")); continue; }
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.setAttribute("aria-hidden", "true");
+      s.style.setProperty("--c", c++);
+      s.textContent = ch;
+      el.appendChild(s);
+    }
+  });
 
   /* ---------- 순차 등장 인덱스 ---------- */
   document.querySelectorAll(".stagger").forEach((group) => {
@@ -85,6 +105,7 @@
   const hero = $("hero");
   const dock = $("dock");
   const where = $("where");
+  const progress = $("progress");
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
@@ -94,6 +115,10 @@
       const vh = window.innerHeight;
       if (poster && !reduce && y < hero.offsetHeight) {
         poster.style.transform = `translate3d(0, ${y * 0.22}px, 0) scale(${1 + y * 0.00008})`;
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - vh;
+        progress.style.setProperty("--p", max > 0 ? Math.min(1, y / max).toFixed(4) : 0);
       }
       if (dock) {
         const pastHero = y > hero.offsetHeight * 0.75;
@@ -323,13 +348,15 @@
     return {
       x: Math.random() * W,
       y: anyY ? Math.random() * H : -10,
-      r: 0.6 + depth * 2.2,
-      vy: 0.25 + depth * 0.9,
+      r: 0.5 + depth * 1.5,
+      vy: 0.18 + depth * 0.6,
       sway: Math.random() * Math.PI * 2,
-      swaySpeed: 0.004 + Math.random() * 0.01,
-      alpha: 0.25 + depth * 0.6,
+      swaySpeed: 0.003 + Math.random() * 0.008,
+      alpha: 0.18 + depth * 0.42,
+      tw: Math.random() * Math.PI * 2,         // 반짝임 위상
+      twSpeed: 0.01 + Math.random() * 0.03,
       depth,
-      warm: Math.random() < 0.18, // 일부는 금빛
+      warm: Math.random() < 0.3, // 일부는 금빛 먼지
     };
   };
   const resize = () => {
@@ -337,7 +364,7 @@
     W = window.innerWidth; H = window.innerHeight;
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const target = Math.round(Math.min(90, (W * H) / 9000));
+    const target = Math.round(Math.min(60, (W * H) / 13000));
     while (flakes.length < target) flakes.push(makeFlake(true));
     flakes.length = target;
   };
@@ -367,9 +394,11 @@
       else if (f.y < -12) f.y = H + 8;
       if (f.x > W + 10) f.x = -10; else if (f.x < -10) f.x = W + 10;
 
+      f.tw += f.twSpeed;
+      const a = f.alpha * (0.55 + 0.45 * Math.sin(f.tw));   // 천천히 반짝임
       const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * 2.4);
-      const c = f.warm ? "255,214,160" : "236,242,255";
-      g.addColorStop(0, `rgba(${c},${f.alpha})`);
+      const c = f.warm ? "255,222,175" : "236,242,255";
+      g.addColorStop(0, `rgba(${c},${a.toFixed(3)})`);
       g.addColorStop(1, `rgba(${c},0)`);
       ctx.fillStyle = g;
       ctx.beginPath();
