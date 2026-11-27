@@ -1724,6 +1724,96 @@ body::after {
 }
 
 /* =========================================================
+   ENDED — 공연 종료 안내 (js 가 12월 11일 0시 이후 띄움)
+   ========================================================= */
+.ended {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 32px 26px calc(32px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  text-align: center;
+  background: radial-gradient(70% 50% at 50% 40%, #2a3550 0%, var(--navy-950) 80%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s var(--ease-silk), visibility 0s linear 1s;
+}
+/* 뒤 배경: 포스터를 아주 흐리고 어둡게 (글자는 보이지 않고 빛·색감만 남김) */
+.ended::before {
+  content: "";
+  position: fixed;
+  inset: -60px;
+  z-index: -1;
+  background: url("../assets/img/poster-212.jpg") center 30% / cover no-repeat;
+  filter: blur(22px) brightness(0.5) saturate(0.9);
+  opacity: 0.55;
+}
+.ended[hidden] { display: none; }
+.ended.is-on { opacity: 1; visibility: visible; transition: opacity 1.2s var(--ease-silk); }
+.ended__inner { max-width: 340px; }
+.ended__inner > * { opacity: 0; }
+.ended.is-on .ended__inner > * { animation: fadeBlur 1.2s var(--ease-luxe) forwards; }
+.ended.is-on .ended__inner > :nth-child(2) { animation-delay: 0.25s; }
+.ended.is-on .ended__inner > :nth-child(3) { animation-delay: 0.5s; }
+.ended.is-on .ended__inner > :nth-child(4) { animation-delay: 0.7s; }
+.ended.is-on .ended__inner > :nth-child(5) { animation-delay: 0.95s; }
+.ended.is-on .ended__inner > :nth-child(6) { animation-delay: 1.15s; }
+.ended.is-on .ended__inner > :nth-child(7) { animation-delay: 1.35s; }
+.ended.is-on .ended__inner > :nth-child(8) { animation-delay: 1.6s; }
+.ended__eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  color: var(--slate-300);
+}
+.ended__title {
+  margin: 0;
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 4.2rem;
+  line-height: 1;
+}
+.ended__title em { font-style: italic; }
+.ended__head {
+  position: relative;
+  margin: 22px 0 6px;
+  padding-top: 22px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #fff;
+}
+.ended__head::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  width: 36px;
+  height: 1px;
+  margin-left: -18px;
+  background: var(--gold-metal);
+}
+.ended__when {
+  margin: 0 0 26px;
+  font-family: var(--serif-en);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--gold-soft);
+}
+.ended__when em { font-style: italic; }
+.ended__msg { margin: 0 0 18px; font-size: 0.98rem; line-height: 2; color: var(--silver); }
+.ended__give { margin: 0 0 22px; font-size: 0.8rem; line-height: 1.8; color: var(--silver-dim); }
+.ended__sign { margin: 0 0 30px; font-size: 0.86rem; letter-spacing: 0.2em; color: var(--slate-300); }
+
+/* 종료 후 초대장(다시 보기): 하단 바 · 캘린더 저장은 숨김 */
+.is-ended .dock,
+.is-ended #btn-ics { display: none; }
+
+/* =========================================================
    DOCK (하단 고정 바)
    ========================================================= */
 .dock {

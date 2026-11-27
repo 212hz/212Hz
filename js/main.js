@@ -39,11 +39,42 @@
     }, 800);
   }
 
+  /* ---------- 공연 종료 안내 ----------
+     기준: 접속한 휴대폰(기기)의 날짜·시간. 공연 다음 날(12월 11일) 0시부터 종료 안내 화면을 먼저 보여 줌.
+     - 초대장을 열어 둔 채 자정을 넘겨도 15초 안에(또는 화면으로 돌아올 때) 전환
+     - "초대장 다시 보기"를 누르면 같은 탭에서는 다시 띄우지 않음 (새 탭·다음 방문 때는 다시 보임) */
+  const ENDED_FROM = new Date(2026, 11, 11, 0, 0, 0); // 기기 시간대 기준 2026-12-11 00:00 (월은 0부터)
+  const isEnded = () => Date.now() >= ENDED_FROM.getTime();
+  const ended = $("ended");
+  let endedShown = false;
+  const showEnded = () => {
+    if (!ended || endedShown) return;
+    endedShown = true;
+    document.documentElement.classList.add("is-ended");
+    if (sessionStorage.getItem("212hz-ended-closed")) return;
+    $("intro")?.remove();
+    ended.hidden = false;
+    document.body.classList.add("is-locked");
+    requestAnimationFrame(() => requestAnimationFrame(() => ended.classList.add("is-on")));
+  };
+  $("ended-close")?.addEventListener("click", () => {
+    sessionStorage.setItem("212hz-ended-closed", "1");
+    ended.classList.remove("is-on");
+    document.body.classList.remove("is-locked");
+    setTimeout(() => { ended.hidden = true; }, 1000);
+  });
+  if (isEnded()) {
+    showEnded();
+  } else {
+    const watch = setInterval(() => { if (isEnded()) { clearInterval(watch); showEnded(); } }, 15000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden && isEnded()) showEnded(); });
+  }
+
   /* ---------- 오프닝 인트로 ---------- */
   const intro = $("intro");
   if (intro) {
     const seen = sessionStorage.getItem("211hz-intro");
-    if (reduce || seen) {
+    if (reduce || seen || isEnded()) {
       intro.remove();
     } else {
       document.body.classList.add("is-locked");
@@ -223,7 +254,7 @@
       if (diff <= 0) {
         cd.hidden = true;
         const endOfShow = EVENT.getTime() + 3 * 3600e3;
-        dday.innerHTML = Date.now() < endOfShow ? "<b>지금</b> 공연이 열리고 있습니다" : "함께해 주셔서 감사합니다";
+        dday.innerHTML = Date.now() < endOfShow ? "<b>지금</b> 공연이 열리고 있습니다" : "공연에 참석해 주셔서 감사합니다";
         return false;
       }
       const s = Math.floor(diff / 1000);

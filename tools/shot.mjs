@@ -16,9 +16,16 @@ import { writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 
-const [, , url, out, mode = "sections"] = process.argv;
+// 날짜 시뮬레이션 옵션 (사이트 코드는 건드리지 않고 브라우저의 "현재 시각"만 바꿈):
+//   --now=2026-12-11T00:00:05+09:00   기기 시계를 이 시각부터 흐르게 함 (시간대는 Asia/Seoul)
+//   --wait=20000                       view 모드에서 캡처 전 기다리는 시간(ms) — 자정 넘김 전환 확인용
+//   --click=#ended-close               view 모드에서 캡처 1장 → 클릭 → 캡처 1장
+//   view 모드: 첫 화면(뷰포트)만 캡처
+const args = process.argv.slice(2);
+const opt = Object.fromEntries(args.filter((a) => a.startsWith("--")).map((a) => { const [k, ...v] = a.slice(2).split("="); return [k, v.join("=")]; }));
+const [url, out, mode = "sections"] = args.filter((a) => !a.startsWith("--"));
 if (!url || !out) {
-  console.error("사용: node tools/shot.mjs <url> <저장경로접두어> [sections|open|intro]");
+  console.error("사용: node tools/shot.mjs <url> <저장경로접두어> [sections|open|intro|view] [--now=ISO] [--wait=ms] [--click=selector]");
   process.exit(2);
 }
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
@@ -99,13 +106,37 @@ const shot = async (name, clip) => {
 };
 
 const W = 390, H = 844;
+const errors = [];
+ws.addEventListener("message", (m) => {
+  const d = JSON.parse(m.data);
+  if (d.method === "Runtime.exceptionThrown") errors.push(d.params.exceptionDetails?.exception?.description || d.params.exceptionDetails?.text);
+});
 await send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: 1, mobile: true });
+await send("Emulation.setTimezoneOverride", { timezoneId: "Asia/Seoul" });
 await send("Page.enable");
 await send("Runtime.enable");
 if (mode !== "intro") await send("Page.addScriptToEvaluateOnNewDocument", { source: "try{sessionStorage.setItem('211hz-intro','1')}catch(e){}" });
+if (opt.now) {
+  const fixed = new Date(opt.now).getTime();
+  if (Number.isNaN(fixed)) { console.error("--now 형식 오류"); cleanup(2); }
+  // 페이지가 보는 Date 를 '지정 시각부터 흐르는 시계'로 교체
+  await send("Page.addScriptToEvaluateOnNewDocument", { source: `(()=>{const R=Date,s=R.now(),f=${fixed};const now=()=>f+(R.now()-s);
+    function D(...a){ if(!new.target) return new R(now()).toString(); return a.length? new R(...a) : new R(now()); }
+    D.prototype=R.prototype; D.now=now; D.parse=R.parse; D.UTC=R.UTC; window.Date=D;})();` });
+}
 await send("Page.navigate", { url });
 
-if (mode === "intro") {
+if (mode === "view") {
+  await sleep(Number(opt.wait || 3000));
+  await shot("view");
+  if (opt.click) {
+    await evalJs(`document.querySelector(${JSON.stringify(opt.click)})?.click()`);
+    await sleep(2500);
+    await shot("after-click");
+  }
+  const state = await evalJs(`JSON.stringify({ now: new Date().toString(), ended: document.documentElement.classList.contains('is-ended'), overlay: !document.getElementById('ended')?.hidden, locked: document.body.classList.contains('is-locked'), dday: document.getElementById('dday')?.textContent, countdownHidden: document.getElementById('countdown')?.hidden, dock: getComputedStyle(document.getElementById('dock')).display, ics: getComputedStyle(document.getElementById('btn-ics')).display })`);
+  console.log("STATE " + state);
+} else if (mode === "intro") {
   let t0 = 0;
   for (const t of [1500, 2600, 3900, 4300, 4800]) { await sleep(t - t0); t0 = t; await shot(`intro-${t}`); }
 } else {
@@ -126,4 +157,5 @@ if (mode === "intro") {
 
 clearTimeout(hardStop);
 console.log(files.join("\n"));
+if (errors.length) console.log("JS 오류:\n" + errors.join("\n"));
 cleanup(0);
