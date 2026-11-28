@@ -16,7 +16,7 @@ tools/preview.py            로컬 실시간 미리보기 서버
 tools/shot.mjs              휴대폰 크기 화면 캡처 (작업 확인용, Edge 자동 종료)
 tools/photo.py              연주자 사진 자르기·화질 보정 → assets/img/performer-*.jpg
 CLAUDE.md                   Claude 작업 지침 (캡처 후 프로세스 정리 · 배포 계정)
-assets/img/                 웹용 이미지 (poster-212-v2.jpg, composer-*.jpg, artist-*.jpg, performer-*.jpg)
+assets/img/                 웹용 이미지 (poster-212-v3.jpg, composer-*.jpg, artist-*.jpg, performer-*.jpg)
 images/                     원본 이미지 (배포되지 않음 · 분류·원본↔웹용 대응은 images/README.md)
 .github/workflows/deploy.yml  자동 배포 (push → GitHub Pages, 일시 오류 시 1회 재시도)
 ```

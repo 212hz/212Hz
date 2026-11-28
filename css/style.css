@@ -1892,7 +1892,7 @@ body.is-zoom { overflow: hidden; }
   position: fixed;
   inset: -60px;
   z-index: -1;
-  background: url("../assets/img/poster-212-v2.jpg") center 30% / cover no-repeat;
+  background: url("../assets/img/poster-212-v3.jpg") center 30% / cover no-repeat;
   filter: blur(22px) brightness(0.5) saturate(0.9);
   opacity: 0.55;
 }
