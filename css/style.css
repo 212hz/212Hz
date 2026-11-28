@@ -1521,13 +1521,19 @@ body.is-zoom { overflow: hidden; }
   border-top: 1px solid rgba(228, 233, 242, 0.1);
   font-size: 0.84rem;
 }
-/* 예정 개인전 일정 (개인전 목록 바로 아래, 왼쪽 금빛 선으로 목록에 딸린 내용처럼) */
+/* 예정 개인전 (개인전 목록 바로 아래: '예정' 소제목 + 왼쪽 금빛 선 안에 전시별 제목·일정) */
+.profile__sub {
+  margin: 10px 0 6px;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
 .profile__next {
-  margin-top: 12px;
   padding: 2px 0 2px 12px;
   border-left: 1px solid rgba(227, 187, 130, 0.45);
 }
-.profile__next-title { margin: 0 0 4px; font-weight: 600; color: #fff; }
+.profile__next-title { margin: 0 0 2px; font-weight: 600; color: #fff; }
+.profile__dates + .profile__next-title { margin-top: 10px; }
 .profile__dates li { display: flex; flex-wrap: wrap; column-gap: 10px; }
 .profile__dates .d { flex: none; font-family: var(--serif-en); font-size: 1.02em; color: var(--slate-300); }
 .profile__dates small { color: var(--slate-300); }
