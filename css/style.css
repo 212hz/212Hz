@@ -1521,11 +1521,11 @@ body.is-zoom { overflow: hidden; }
   border-top: 1px solid rgba(228, 233, 242, 0.1);
   font-size: 0.84rem;
 }
-/* 예정 개인전 (프로필 맨 아래) */
+/* 예정 개인전 일정 (개인전 목록 바로 아래, 왼쪽 금빛 선으로 목록에 딸린 내용처럼) */
 .profile__next {
-  margin-top: 16px;
-  padding-top: 2px;
-  border-top: 1px solid rgba(228, 233, 242, 0.1);
+  margin-top: 12px;
+  padding: 2px 0 2px 12px;
+  border-left: 1px solid rgba(227, 187, 130, 0.45);
 }
 .profile__next-title { margin: 0 0 4px; font-weight: 600; color: #fff; }
 .profile__dates li { display: flex; flex-wrap: wrap; column-gap: 10px; }
