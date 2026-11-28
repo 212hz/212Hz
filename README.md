@@ -14,8 +14,9 @@ css/style.css               스타일 (섹션별 주석 블록으로 구분)
 js/main.js                  인트로, 스크롤 효과, 파형, 달력·카운트다운, 캘린더 저장, 공유, 눈 효과
 tools/preview.py            로컬 실시간 미리보기 서버
 tools/shot.mjs              휴대폰 크기 화면 캡처 (작업 확인용, Edge 자동 종료)
+tools/photo.py              연주자 사진 자르기·화질 보정 → assets/img/performer-*.jpg
 CLAUDE.md                   Claude 작업 지침 (캡처 후 프로세스 정리 · 배포 계정)
-assets/img/                 웹용 이미지 (poster-212.jpg, composer-*.jpg, artist-*.jpg)
+assets/img/                 웹용 이미지 (poster-212.jpg, composer-*.jpg, artist-*.jpg, performer-*.jpg)
 images/                     원본 이미지 (배포되지 않음)
 .github/workflows/deploy.yml  자동 배포 (push → GitHub Pages, 일시 오류 시 1회 재시도)
 ```
@@ -32,7 +33,7 @@ images/                     원본 이미지 (배포되지 않음)
 | `<!-- 4. 콘셉트 -->` | 두 개의 울림 | |
 | `<!-- 5. 감상 포인트 -->` | 01~03 | |
 | `<!-- 7. 프로그램 -->` | 곡명·편성·곡 소개 | 곡 추가/수정 |
-| `<!-- 8. 연주자 -->` | 편성별 연주자 목록 | 연주자 추가/수정 |
+| `<!-- 8. 연주자 -->` | 편성별 연주자 목록·사진 | 연주자 추가/수정, 사진 추가 |
 | `<!-- 8-1. 일시 -->` | 날짜·달력·카운트다운 | 날짜는 `js/main.js`의 `EVENT`, 캘린더 저장(ics)도 함께 |
 | `<!-- 9. 오시는 길 -->` | 엘클래식 주소·지도·교통 | |
 | `<!-- 10. 맺음 / 공유 -->` | 맺음말·공유 버튼 | |
@@ -43,6 +44,14 @@ images/                     원본 이미지 (배포되지 않음)
   같은 편성에 사람을 추가하려면 ① `summary` 안의 `<span class="m"><b>이름</b><i>악기</i></span>` 한 줄,
   ② 아래 `crew__bio` 안의 `<div><p class="who">…</p><p>약력 · 약력</p></div>` 한 줄을 복사해 고칩니다.
   새 편성은 `<details class="crew__row">` 블록을 통째로 복사합니다.
+  프로그램의 곡별 연주자 줄(`<span class="pg__cast">`)도 함께 고칩니다.
+- **연주자 사진 추가** (약력 왼쪽 빈칸에 표시, 누르면 화면 가운데에 크게 보기):
+  1. 원본을 `images/`에 넣고 `python tools/photo.py images/<원본> <영문이름>` 실행
+     → `assets/img/performer-<영문이름>.jpg` 생성(작은 사진은 고품질 확대, 피부·밝기 보정).
+     여러 명이 든 프로필 이미지면 `--crop 왼쪽,위,오른쪽,아래`, 어두운 사진이면 `--bright 0.8`.
+  2. 실행 결과에 나오는 `<img class="ph" …>` 를 그 연주자 약력 `<div>` 맨 앞에 넣고 `<div class="has-ph">` 로 바꿉니다.
+     확대 보기·캡션(이름·악기)은 자동으로 붙으므로 JS·CSS 는 고칠 필요가 없습니다.
+  - 이미 배포된 사진을 바꿀 때는 새 이름(예: `park-jieun-v2`)으로 만듭니다(캐시 때문).
 - **곡 추가/수정**: `<li class="pg"> … </li>` 블록 하나가 한 곡입니다. 시각예술 협업 곡은 `is-feature` 클래스와 `tag`를 붙입니다.
 - **포스터 교체**: 새 이미지를 `assets/img/`에 **새 파일명**으로 넣고, `index.html`의 `hero__poster` src 와 `og:image` 두 곳을 바꿉니다.
   (같은 파일명으로 덮어쓰면 휴대폰·카카오톡 캐시 때문에 옛 포스터가 보일 수 있습니다.)
