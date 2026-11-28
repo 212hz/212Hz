@@ -922,6 +922,80 @@ body::after {
   box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.8);
 }
 .crew__bio > div.has-ph + div { margin-top: 14px; }
+.crew__bio .ph { cursor: zoom-in; transition: transform 0.4s var(--ease-out), border-color 0.4s ease; }
+.crew__bio .ph:hover,
+.crew__bio .ph:focus-visible { transform: scale(1.03); border-color: var(--gold); outline: none; }
+
+/* 연주자 사진 크게 보기 */
+body.is-zoom { overflow: hidden; }
+.zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  background: rgba(8, 12, 20, 0.86);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+.zoom.is-open { opacity: 1; visibility: visible; transition: opacity 0.35s ease; }
+.zoom__fig {
+  margin: 0;
+  text-align: center;
+  transform: scale(0.95);
+  transition: transform 0.5s var(--ease-out);
+}
+.zoom.is-open .zoom__fig { transform: none; }
+.zoom__fig img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(64vw, 280px);   /* 너무 크지 않게: 휴대폰 폭의 약 2/3 */
+  max-height: 56vh;
+  margin: 0 auto;
+  border: 1px solid rgba(227, 187, 130, 0.45);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+}
+.zoom__fig figcaption {
+  margin-top: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--silver);
+}
+.zoom__fig figcaption i {
+  margin-left: 6px;
+  font-family: var(--serif-en);
+  font-weight: 400;
+  color: var(--gold);
+}
+.zoom__close {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top));
+  right: 14px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(227, 187, 130, 0.45);
+  border-radius: 50%;
+  background: rgba(13, 19, 32, 0.6);
+  cursor: pointer;
+}
+/* ✕ 표시 (선 두 개) */
+.zoom__close::before,
+.zoom__close::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 16px; height: 1px;
+  background: var(--gold-soft);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.zoom__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
 
 @media (max-width: 360px) {
   .crew__row summary { grid-template-columns: 1fr; gap: 4px; }

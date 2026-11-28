@@ -368,6 +368,49 @@
     }
   });
 
+  /* ---------- 연주자 사진 크게 보기 ----------
+     약력의 사진(.crew__bio .ph)을 누르면 열림. 배경·사진·✕·Esc·휴대폰 뒤로가기로 닫힘 */
+  const zoom = $("zoom");
+  if (zoom) {
+    const zImg = $("zoom-img");
+    const zCap = $("zoom-cap");
+    let opener = null;
+
+    const open = (ph) => {
+      opener = ph;
+      zImg.src = ph.currentSrc || ph.src;
+      zImg.alt = ph.alt;
+      const who = ph.parentElement.querySelector(".who");
+      zCap.replaceChildren(...(who ? [...who.cloneNode(true).childNodes] : [ph.alt]));
+      zoom.classList.add("is-open");
+      zoom.setAttribute("aria-hidden", "false");
+      document.body.classList.add("is-zoom");
+      history.pushState({ zoom: true }, "");
+      $("zoom-close").focus({ preventScroll: true });
+    };
+    const close = () => {
+      if (!zoom.classList.contains("is-open")) return;
+      zoom.classList.remove("is-open");
+      zoom.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("is-zoom");
+      if (history.state && history.state.zoom) history.back();
+      opener?.focus({ preventScroll: true });
+    };
+
+    document.querySelectorAll(".crew__bio .ph").forEach((ph) => {
+      ph.tabIndex = 0;
+      ph.setAttribute("role", "button");
+      ph.setAttribute("aria-label", `${ph.alt} 사진 크게 보기`);
+      ph.addEventListener("click", () => open(ph));
+      ph.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(ph); }
+      });
+    });
+    zoom.addEventListener("click", close);
+    window.addEventListener("popstate", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
+
   /* ---------- 눈 효과 ---------- */
   const canvas = $("snow");
   if (!canvas || reduce) return;

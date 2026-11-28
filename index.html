@@ -50,6 +50,12 @@
     </div>
   </div>
 
+  <!-- 연주자 사진 크게 보기 (연주자 약력의 사진을 누르면 열림) -->
+  <div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="연주자 사진 크게 보기" aria-hidden="true">
+    <figure class="zoom__fig"><img id="zoom-img" alt="" /><figcaption id="zoom-cap"></figcaption></figure>
+    <button class="zoom__close" id="zoom-close" type="button" aria-label="닫기"></button>
+  </div>
+
   <canvas id="snow" aria-hidden="true"></canvas>
 
   <div class="progress" id="progress" aria-hidden="true"></div>
@@ -305,7 +311,7 @@
     <!-- 8. 연주자 -->
     <!-- 편성 1줄 = <details class="crew__row"> 1개.
          연주자 추가: summary 안 <span class="m"> 1개 + 아래 crew__bio 안 <div> 1개를 복사해 이름·악기·약력만 수정
-         사진이 있으면: <div class="has-ph"> 로 바꾸고 맨 앞에 <img class="ph" src="assets/img/performer-….jpg"> 추가 (왼쪽 빈칸에 표시) -->
+         사진이 있으면: <div class="has-ph"> 로 바꾸고 맨 앞에 <img class="ph" src="assets/img/performer-….jpg"> 추가 (왼쪽 빈칸에 표시, 누르면 크게 보기) -->
     <section class="section performers reveal" aria-labelledby="performers-title">
       <h2 id="performers-title" class="sec-title"><span>Performers</span>연주자</h2>
 
@@ -320,9 +326,9 @@
             </span>
           </summary>
           <div class="crew__bio">
-            <div class="has-ph"><img class="ph" src="assets/img/performer-yu-junghoon.jpg" width="272" height="332" alt="유중훈" loading="lazy" /><p class="who">유중훈 <i>Violin</i></p><p>충남대학교 졸업 · 한음, 대전음협 콩쿠르 1위 · 대전 예술의전당 베토벤 아벤트, M프로젝트 ‘공존’ 출연 · Djac청년오케스트라 단원, 청주시립교향악단 비상임단원, 대전아트필 오케스트라 단원 역임</p></div>
-            <div class="has-ph"><img class="ph" src="assets/img/performer-kim-sinseok.jpg" width="272" height="314" alt="김신석" loading="lazy" /><p class="who">김신석 <i>Cello</i></p><p>대전예술고등학교, 충남대학교 관현악과 졸업 · 청주CBS·대전음협·대전가톨릭·하이든 국제콩쿠르 입상 · 현) 안디무지크 필하모니아 단원, 엔클레프 앙상블, 레브앙상블, 블레싱앙상블, 벨코첼리 멤버</p></div>
-            <div class="has-ph"><img class="ph" src="assets/img/performer-park-jieun.jpg" width="272" height="318" alt="박지은" loading="lazy" /><p class="who">박지은 <i>Piano</i></p><p>대전예술고등학교, 충남대학교 음악과 실기 수석 졸업 및 석사 졸업 · 연세대학교 음악대학 피아노과 박사과정 수료 (졸업 예정) · 이탈리아 Firenze Centro Studi Musica e Arte 최고 연주자 및 음악코치 Diploma · Beethoven International Music Competition UK 심사위원 만장일치 1위 및 특별상 수상 · 현) 대전예술고·충북예술고 영재원 출강, 충남대학교 오페라 음악코치</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-yu-junghoon-hq.jpg" width="544" height="664" alt="유중훈" loading="lazy" /><p class="who">유중훈 <i>Violin</i></p><p>충남대학교 졸업 · 한음, 대전음협 콩쿠르 1위 · 대전 예술의전당 베토벤 아벤트, M프로젝트 ‘공존’ 출연 · Djac청년오케스트라 단원, 청주시립교향악단 비상임단원, 대전아트필 오케스트라 단원 역임</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-kim-sinseok-hq.jpg" width="544" height="628" alt="김신석" loading="lazy" /><p class="who">김신석 <i>Cello</i></p><p>대전예술고등학교, 충남대학교 관현악과 졸업 · 청주CBS·대전음협·대전가톨릭·하이든 국제콩쿠르 입상 · 현) 안디무지크 필하모니아 단원, 엔클레프 앙상블, 레브앙상블, 블레싱앙상블, 벨코첼리 멤버</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-park-jieun-hq.jpg" width="544" height="636" alt="박지은" loading="lazy" /><p class="who">박지은 <i>Piano</i></p><p>대전예술고등학교, 충남대학교 음악과 실기 수석 졸업 및 석사 졸업 · 연세대학교 음악대학 피아노과 박사과정 수료 (졸업 예정) · 이탈리아 Firenze Centro Studi Musica e Arte 최고 연주자 및 음악코치 Diploma · Beethoven International Music Competition UK 심사위원 만장일치 1위 및 특별상 수상 · 현) 대전예술고·충북예술고 영재원 출강, 충남대학교 오페라 음악코치</p></div>
           </div>
         </details>
 
@@ -382,7 +388,7 @@
           </div>
         </details>
       </div>
-      <p class="note">편성을 누르면 연주자 약력을 볼 수 있습니다.</p>
+      <p class="note">편성을 누르면 연주자 약력을, 사진을 누르면 크게 볼 수 있습니다.</p>
     </section>
 
     <!-- 8-1. 일시 -->
