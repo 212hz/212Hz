@@ -907,10 +907,28 @@ body::after {
 .crew__bio .who { margin-bottom: 1px; font-size: 0.84rem; font-weight: 600; color: var(--silver); }
 .crew__bio .who i { font-family: var(--serif-en); font-weight: 400; color: var(--gold); }
 .performers .note { margin-top: 16px; }
+/* 연주자 사진: 약력 왼쪽 빈칸(편성 이름 아래 6.6em 폭)에 맞춰 표시. 사진 없는 연주자는 그대로 */
+.crew__bio > div.has-ph { position: relative; min-height: calc(6.6em * 1.25 + 6px); }
+.crew__bio .ph {
+  position: absolute;
+  top: 4px;
+  left: calc(-6.6em - 10px);
+  width: 6.6em;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 20%;
+  border: 1px solid rgba(227, 187, 130, 0.35);
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.8);
+}
+.crew__bio > div.has-ph + div { margin-top: 14px; }
 
 @media (max-width: 360px) {
   .crew__row summary { grid-template-columns: 1fr; gap: 4px; }
   .crew__bio { padding-left: 4px; }
+  /* 좁은 화면: 왼쪽 빈칸이 없으므로 사진을 글 왼쪽에 작게 띄움 */
+  .crew__bio > div.has-ph { display: flow-root; min-height: 0; }
+  .crew__bio .ph { position: static; float: left; width: 64px; margin: 3px 10px 4px 0; }
 }
 
 /* =========================================================
