@@ -637,18 +637,19 @@ body::after {
    COMPOSER (메인 인물)
    ========================================================= */
 .composer { padding-top: 76px; }
+/* 화보형 액자: 반듯한 세로 사진 + 오른쪽 아래로 어긋난 금빛 액자 + 왼쪽 세로 글씨 */
 .composer__figure {
   position: relative;
   margin: 0 auto;
-  max-width: 340px;
+  max-width: 288px;
 }
 .composer__photo {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 170px 170px 4px 4px;   /* 아치형 프레임 */
-  border: 1px solid rgba(227, 187, 130, 0.5);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 8px rgba(227, 187, 130, 0.06);
+  border-radius: 2px;
+  border: 1px solid rgba(227, 187, 130, 0.55);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.65);
 }
 .composer__photo img {
   width: 100%;
@@ -664,19 +665,45 @@ body::after {
     linear-gradient(180deg, transparent 50%, rgba(13, 19, 32, 0.85) 100%),
     radial-gradient(60% 40% at 70% 20%, rgba(255, 210, 150, 0.12), transparent 70%);
 }
-/* 바깥 금빛 아치 — 사진에서 10px 떨어진 두 번째 테두리 */
+/* 뒤쪽 금빛 액자 — 오른쪽 아래로 14px 어긋나 겹침 (입체감) */
 .composer__figure::before {
   content: "";
   position: absolute;
-  inset: -11px;
-  border-radius: 181px 181px 8px 8px;
+  inset: 0;
+  transform: translate(14px, 14px);
+  border-radius: 2px;
   border: 1px solid transparent;
   background: var(--gold-metal) border-box;
   -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0);
-  opacity: 0.55;
+  opacity: 0.75;
   pointer-events: none;
+}
+/* 왼쪽 세로 글씨 */
+.composer__side {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  white-space: nowrap;
+  color: var(--gold);
+  opacity: 0.85;
+}
+.composer__side::before,
+.composer__side::after {
+  content: "";
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(227, 187, 130, 0.5), transparent);
 }
 .js .composer__figure::before { clip-path: inset(0 0 100% 0); transition: clip-path 2.4s var(--ease-silk) 0.9s; }
 .js .composer.is-visible .composer__figure::before { clip-path: inset(0 0 0 0); }
@@ -694,10 +721,15 @@ body::after {
 }
 .js .composer.is-visible .composer__photo::before { animation: sheen 2.2s var(--ease-silk) 2.1s both; }
 @keyframes sheen { from { left: -70%; } to { left: 130%; } }
-.js .composer__photo { clip-path: inset(100% 0 0 0 round 170px 170px 4px 4px); transition: clip-path 1.8s var(--ease-silk) 0.3s; }
+.js .composer__photo { clip-path: inset(100% 0 0 0 round 2px); transition: clip-path 1.8s var(--ease-silk) 0.3s; }
 .js .composer__photo img { transform: scale(1.18); transition: transform 2.8s var(--ease-out) 0.3s; }
-.js .composer.is-visible .composer__photo { clip-path: inset(0 0 0 0 round 170px 170px 4px 4px); }
-.js .composer.is-visible .composer__photo img { transform: none; }
+.js .composer.is-visible .composer__photo { clip-path: inset(0 0 0 0 round 2px); }
+.js .composer.is-visible .composer__photo img { transform: none; animation: composerBreathe 20s ease-in-out 3.2s infinite alternate; }
+/* 숨쉬기: 사진이 아주 천천히 다가왔다 물러남 (동작 줄이기 설정 시 자동으로 꺼짐) */
+@keyframes composerBreathe {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06) translateY(-1.2%); }
+}
 
 .composer__name {
   position: absolute;

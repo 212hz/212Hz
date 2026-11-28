@@ -24,7 +24,7 @@
 | `1_공연/공연포스터.png` | `poster-212-v3.jpg` (사용 중) | 신비·고급 색보정: 어두운 곳 깊은 남색 / 밝은 곳 샴페인 골드, 조명 빛 번짐(블룸), 가장자리 비네트 |
 | 〃 | `poster-212.jpg` | 보정 전. 예전에 공유된 카톡 미리보기용으로 남겨 둠 |
 | `1_공연/에필로그_나눔(남김말).png` | `epilogue-nanum.jpg` | |
-| `2_작곡가/이원희_작곡가.jpg` | `composer-lee-wonhee.jpg` | |
+| `2_작곡가/이원희_작곡가.jpg` | `composer-lee-wonhee-v2.jpg` | 회색 배경 → 깊은 남색, 얼굴 쪽 따뜻한 빛, 은은한 비네트 |
 | `3_시각예술/임채은_시각예술.png` | `artist-lim-chaeeun.jpg` | |
 | `4_연주자/사진/유중훈_바이올린.jpg` | `performer-yu-junghoon-v2.jpg` | `--crop 100,0,1223,1404` (정사각형 → 세로) |
 | `4_연주자/사진/김신석_첼로.jpg` | `performer-kim-sinseok-v2.jpg` | `--bright 0.85` (어두운 사진) |
