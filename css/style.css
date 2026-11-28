@@ -1387,8 +1387,10 @@ body.is-zoom { overflow: hidden; }
   cursor: pointer;
 }
 .pg__fold > summary::-webkit-details-marker { display: none; }
-/* 펼치기 단추: 연주자 아래 [곡 소개 보기 ▾] → 펼치면 [접기 ▴] */
-.pg__fold > summary::after { content: "곡 소개 보기 ▾"; grid-column: 2; margin-top: 12px; }
+/* 펼치기 단추: 오른쪽 위(곡 제목 높이) [곡 소개 보기 ▾] → 펼치면 [접기 ▴]
+   제목 줄만 단추 자리를 비우고, 아래 편성·연주자 줄은 전체 폭 사용 */
+.pg__fold > summary::after { content: "곡 소개 보기 ▾"; position: absolute; right: 4px; top: 19px; }
+.pg__fold .pg__title { padding-right: 7.4rem; }
 .pg__fold[open] > summary::after { content: "접기 ▴"; }
 .pg__head { display: block; }
 .pg__head .pg__inst { display: block; margin-bottom: 0; }
