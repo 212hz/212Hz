@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#141c2c" />
+  <!-- 배포 버전: GitHub Actions 가 커밋 ID로 바꿔 넣습니다 (로컬에서는 dev) -->
+  <meta name="build" content="63d8251" />
+  <title>212Hz · 작곡가 이원희 작품발표회</title>
+  <meta name="description" content="212Hz — 현대음악과 가곡을 만나다. 낯섦과 익숙함. 2026년 12월 10일(목) 오후 7시 30분, 대전 엘클래식." />
+
+  <!-- 링크 공유 미리보기 (카카오톡 등은 절대경로가 필요) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://212hz.github.io/212Hz/" />
+  <meta property="og:title" content="212Hz · 작곡가 이원희 작품발표회" />
+  <meta property="og:description" content="현대음악과 가곡을 만나다 — 2026. 12. 10 Thu. 19:30 · 대전 엘클래식" />
+  <meta property="og:image" content="https://212hz.github.io/212Hz/assets/img/poster-212-v3.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=63d8251" />
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <!-- 오프닝 인트로 -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__inner">
+      <p class="intro__eyebrow">Lee Wonhee · Composition Recital</p>
+      <svg class="intro__wave" viewBox="0 0 240 40">
+        <path d="M0 20 C 15 0, 25 0, 40 20 S 65 40, 80 20 S 105 0, 120 20 S 145 40, 160 20 S 185 0, 200 20 S 225 40, 240 20" />
+      </svg>
+      <p class="intro__title">212<em>Hz</em></p>
+      <p class="intro__sub">낯섦과 익숙함</p>
+    </div>
+    <span class="intro__skip">Tap to open</span>
+  </div>
+
+  <!-- 공연 종료 안내: 휴대폰 날짜가 공연 다음 날(12월 11일 0시) 이후면 js/main.js?v=63d8251 가 띄움 -->
+  <div class="ended" id="ended" role="dialog" aria-modal="true" aria-labelledby="ended-title" hidden>
+    <div class="ended__inner">
+      <p class="ended__eyebrow">Lee Wonhee · Composition Recital</p>
+      <p class="ended__title shimmer">212<em>Hz</em></p>
+      <h2 class="ended__head" id="ended-title">공연이 마무리되었습니다</h2>
+      <p class="ended__when">2026. 12. 10 <em>Thu.</em> · 대전 엘클래식</p>
+      <p class="ended__msg">낯섦과 익숙함이 만나던 그 밤,<br />공연에 참석해 주신 모든 분께<br />진심으로 감사드립니다.</p>
+      <p class="ended__give">본 공연의 수익금 전액은 한국해비타트를 통해<br />독립운동가 후손들을 위한 지원에 기부됩니다.</p>
+      <p class="ended__sign">작곡가 이원희</p>
+      <button class="btn btn--ghost ended__btn" type="button" id="ended-close">초대장 다시 보기</button>
+    </div>
+  </div>
+
+  <!-- 연주자 사진 크게 보기 (연주자 약력의 사진을 누르면 열림) -->
+  <div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="연주자 사진 크게 보기" aria-hidden="true">
+    <figure class="zoom__fig"><img id="zoom-img" alt="" /><figcaption id="zoom-cap"></figcaption></figure>
+    <button class="zoom__close" id="zoom-close" type="button" aria-label="닫기"></button>
+  </div>
+
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <main class="card">
+    <div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+    <!-- 1. 메인 비주얼 : 포스터 -->
+    <section class="hero" id="hero" aria-label="공연 포스터">
+      <div class="hero__frame">
+        <img class="hero__poster" id="hero-poster" src="assets/img/poster-212-v3.jpg"
+             alt="212Hz 작곡가 이원희 작품발표회 포스터 — 현대음악과 가곡을 만나다, 낯섦과 익숙함, 2026년 12월 10일 목요일 19시 30분, 시각예술 임채은" />
+        <div class="hero__leak" aria-hidden="true"></div>
+      </div>
+      <div class="hero__glow" aria-hidden="true"></div>
+      <a class="hero__scroll" href="#prologue" aria-label="초대장 보기">
+        <span>Invitation</span>
+        <i></i>
+      </a>
+    </section>
+
+    <!-- 2. 프롤로그 -->
+    <section id="prologue" class="section prologue reveal">
+      <p class="eyebrow"><span class="line"></span>작곡가 이원희 작품발표회<span class="line"></span></p>
+      <h1 class="title shimmer">212<em>Hz</em></h1>
+      <p class="subtitle">현대음악과 가곡을 만나다</p>
+      <p class="slogan" aria-label="낯섦과 익숙함">
+        <span class="slogan__a">낯섦</span><span class="slogan__and">과</span><span class="slogan__b">익숙함</span>
+      </p>
+
+      <div class="tone">
+        <canvas class="tone__wave" id="tone-wave" aria-hidden="true"></canvas>
+      </div>
+
+      <div class="letter stagger">
+        <p>익숙한 노래가 문득 낯설게 들리고,<br />낯선 소리가 어느새 익숙해지는<br />순간이 있습니다.</p>
+        <p>현대음악의 새로운 울림과<br />가곡의 서정 사이에서<br />그동안 써 내려온 음악들을<br />한 무대에 담았습니다.</p>
+        <p>12월 10일 저녁,<br />그 무대에<br />소중한 당신을 초대합니다.</p>
+        <p class="sign">작곡가 이원희</p>
+      </div>
+    </section>
+
+    <!-- 3. 작곡가 (메인) -->
+    <section class="section composer reveal" id="composer" aria-labelledby="composer-title">
+      <h2 class="sec-title"><span>The Composer</span>작곡가</h2>
+
+      <figure class="composer__figure">
+        <span class="composer__side" aria-hidden="true">Composition Recital · 2026</span>
+        <div class="composer__photo">
+          <img src="assets/img/composer-lee-wonhee-v2.jpg" width="720" height="960" alt="작곡가 이원희" loading="lazy" />
+        </div>
+        <figcaption class="composer__name">
+          <span class="composer__en">Lee Wonhee</span>
+          <strong id="composer-title">이원희</strong>
+          <span class="composer__role">Composer</span>
+        </figcaption>
+      </figure>
+
+      <p class="composer__now">
+        <b>에제르아트홀 예술감독</b><span>·</span><b>대전문화예술공작소 대표</b><span>·</span><b>앙상블 루나 작곡가</b>
+      </p>
+
+      <blockquote class="composer__lead">
+        <p>이번 공연은 인간의 내면과 감정, 사회와 역사, 자연과 예술을 소재로 한 여섯 작품으로 구성되며, 현대음악과 가곡을 통해 낯섦과 익숙함 사이에서 발견할 수 있는 음악적 아름다움을 전하고자 합니다.</p>
+      </blockquote>
+
+      <!-- 접기 블록(.fold): summary 를 누르면 펼쳐짐 -->
+      <details class="fold">
+        <summary><span class="fold__open">약력 보기</span><span class="fold__close">약력 접기</span></summary>
+        <div class="cv">
+          <p class="cv__label">Education</p>
+          <ul class="cv__list">
+            <li>충남대학교 및 동 대학원 졸업</li>
+            <li>프랑스 CRR de Versailles 아티스트 디플로마 졸업</li>
+            <li>프랑스 Cergy-Pontoise 최고연주자과정 졸업</li>
+            <li>프랑스 CRD Edgar-Varèse 최고연주자과정 졸업</li>
+          </ul>
+  
+          <p class="cv__label">Awards &amp; Activities</p>
+          <ul class="cv__list">
+            <li><em>Orazio Michi dell'Arpa</em> International Composition Competition (Italy) 3위</li>
+            <li><em>Vienna International Classical Music Competition</em> Solo 3위, Ensemble Honorable Mention (Austria)</li>
+            <li><em>Franco Margola</em> International Composition Competition (Italy) 2위</li>
+            <li>프랑스 S.M.C(현대음악협회) 작품 선정 연주</li>
+            <li>중앙음악콩쿠르 작곡 3위</li>
+            <li>서울음악제 실내악, 대구국제현대음악제, 대전현대음악협회 공모 대상</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- 3-1. 시각예술 (작곡가와의 협업) -->
+    <section class="section collab reveal" aria-labelledby="collab-title">
+      <h2 id="collab-title" class="sec-title"><span>Collaboration</span>함께하는 시각예술</h2>
+
+      <div class="collab__card">
+        <div class="collab__side">
+          <div class="collab__photo"><img src="assets/img/artist-lim-chaeeun.jpg" alt="시각예술 임채은" loading="lazy" /></div>
+          <p class="collab__role">Visual Art<br />시각예술</p>
+        </div>
+        <div class="collab__body">
+          <p class="collab__name">임채은 <span>Im Chae Eun</span></p>
+          <p class="collab__with">with <em>Piscinas das Marés</em></p>
+          <p class="collab__txt">음표를 반복·중첩하는 ‘선율층경법’으로 알바로 시자의 해수수영장과 이원희 작곡가의 현악사중주, 관객의 감각을 네 점의 악기 오브제 작품에 담았습니다.</p>
+        </div>
+      </div>
+
+      <details class="more more--profile">
+        <summary>작가 프로필</summary>
+        <div class="profile">
+          <ul class="profile__edu">
+            <li>홍익대학교 교육대학원 미술교육(박물관·미술관교육) 전공 졸업</li>
+            <li>충남대학교 예술대학 회화과 졸업</li>
+          </ul>
+          <p class="profile__label">개인전</p>
+          <ul class="profile__shows">
+            <li><span class="yr">2026</span>〈Yellow Heart〉展</li>
+            <li><span class="yr">2026</span>〈생명의 선율〉展</li>
+          </ul>
+          <!-- 예정 개인전: 전시 1개 = 제목 <p class="profile__next-title"> + 일정 <ul class="profile__dates"> -->
+          <p class="profile__sub">예정</p>
+          <div class="profile__next">
+            <p class="profile__next-title">〈흐르는 선율〉展</p>
+            <ul class="profile__dates">
+              <li><span class="d">2027. 01. 12 – 01. 17</span><span>세종보 갤러리 <small>(세종)</small></span></li>
+            </ul>
+            <p class="profile__next-title">〈吉祥〉展</p>
+            <ul class="profile__dates">
+              <li><span class="d">2027. 10. 20 – 10. 24</span><span>가고시포 갤러리 <small>(서울 북촌)</small></span></li>
+            </ul>
+          </div>
+          <p class="profile__etc">국내외 전시, 레지던시, 인큐베이팅 프로그램, 프로젝트 전시 그룹, 문화재단 지원사업 등 문화예술 프로젝트 참여 다수<br />대학 미술영재교육원 강사, 국립·시립 박물관 교육강사 역임</p>
+        </div>
+      </details>
+
+      <details class="more more--note">
+        <summary>작가 노트 · 음악과 시각예술, 그리고 관객</summary>
+        <div class="essay">
+          <p>이번 작품을 준비하면서 가장 고민했던 부분은 작가로서의 고유한 표현, 이원희 작곡가의 음악이 전하는 정서, 그리고 관객의 감상 사이에서 균형을 찾는 일이었습니다.</p>
+          <p>작품의 모티브가 된 포르투갈 건축가 알바로 시자의 해안 수영장 <em lang="pt">Piscina das Marés</em>를 처음 사진과 영상으로 접했을 때, 제게는 바다와 맞닿은 수영장에서 여유롭게 시간을 보내고 물놀이를 즐기는 사람들의 모습이 먼저 다가왔습니다. 여행지에서 느낄 수 있는 자유롭고 경쾌한 분위기는 평소 밝고 선명한 색채를 즐겨 사용하는 저의 작업 성향과도 자연스럽게 연결되었습니다.</p>
+          <p>그러나 이번 공연을 위해 작곡된 현악사중주곡을 처음 들었을 때는 제가 상상했던 풍경과는 사뭇 다른 정서를 느꼈습니다. 해안 수영장의 이미지에서 받은 시각적 인상과 음악이 전하는 감정 사이에서 어떤 방향으로 작품을 풀어내야 할지 고민이 깊어졌습니다.</p>
+          <p>개인적인 감각에만 집중하면 관객에게 다소 난해하게 다가갈 수 있고, 반대로 음악의 분위기나 관객의 이해에 지나치게 맞추면 작가로서의 고유한 표현이 약해질 수 있기 때문입니다.</p>
+          <p>작품의 기본적인 방향과 표현 방식은 유지하면서 작업이 잘 풀리지 않는 부분은 작곡가의 의견을 구하고, 가족들에게도 작품을 보여주며 일반 관객의 입장에서 느낀 감상과 의견을 들어보았습니다.</p>
+          <p>최근에는 음표를 반복하고 겹쳐 풍경을 구성하는 저만의 표현 기법인 <strong class="term">‘선율층경법’</strong>을 만들어 작업에 활용하고 있습니다. 기존 작업에서는 음악의 선율을 비교적 추상적으로 표현했다면, 이번에는 해안 풍경의 구체적인 형태를 살리면서 음표의 반복과 중첩을 통해 바다의 움직임과 바위, 모래사장의 질감을 표현했습니다.</p>
+          <p>음악이 전하는 정서와 해안 풍경에서 받은 시각적 인상을 조화롭게 담아내고자 했습니다. 저만의 표현 방식을 유지하면서도 관객이 작품에 자연스럽게 다가갈 수 있도록 표현의 균형을 찾는 데 중점을 두었습니다.</p>
+          <p class="essay__sign">시각예술 임채은</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 4. 콘셉트 : 두 개의 울림 -->
+    <section class="section concept reveal" aria-labelledby="concept-title">
+      <h2 id="concept-title" class="sec-title"><span>Two Resonances</span>두 개의 울림</h2>
+
+      <div class="concept__pair stagger">
+        <article class="res res--a">
+          <p class="res__en">Unfamiliar</p>
+          <h3 class="res__ko">낯섦</h3>
+          <p class="res__genre">현대음악</p>
+          <p class="res__txt">익숙한 문법을 벗어난<br />화성과 음색,<br />처음 듣는 소리의 설렘</p>
+        </article>
+        <div class="res__meet" aria-hidden="true"><span>×</span></div>
+        <article class="res res--b">
+          <p class="res__en">Familiar</p>
+          <h3 class="res__ko">익숙함</h3>
+          <p class="res__genre">가곡</p>
+          <p class="res__txt">말과 선율이<br />함께 흐르는 노래,<br />마음에 닿는 울림</p>
+        </article>
+      </div>
+      <p class="concept__close">두 세계를 오가는 작곡가 이원희의 음악이<br />하나의 울림, <strong>212Hz</strong>로 이어집니다.</p>
+    </section>
+
+    <!-- 5. 감상 포인트 -->
+    <section class="section highlights reveal" aria-labelledby="hl-title">
+      <h2 id="hl-title" class="sec-title"><span>Highlights</span>이 밤의 감상 포인트</h2>
+      <ol class="hl stagger">
+        <li class="hl__item">
+          <span class="hl__no">01</span>
+          <div>
+            <h3>여섯 작품, 여섯 개의 이야기</h3>
+            <p>오디세우스의 여정, 신채호의 달,<br />나전칠기의 빛, 바닷가의 수영장까지.<br />피아노 트리오부터 현악사중주, 가곡까지.</p>
+          </div>
+        </li>
+        <li class="hl__item">
+          <span class="hl__no">02</span>
+          <div>
+            <h3>바다를 그린 현악사중주</h3>
+            <p>알바로 시자의 바닷가 수영장에서 출발한<br /><em class="en-i">Piscinas das Marés</em>.<br />현악사중주와 함께 네 점의 악기 오브제 작품을 만납니다.</p>
+          </div>
+        </li>
+        <li class="hl__item">
+          <span class="hl__no">03</span>
+          <div>
+            <h3>가까이, 더 깊이</h3>
+            <p>100석 규모의 하우스 콘서트홀 엘클래식.<br />스타인웨이 그랜드 피아노의 울림을<br />가장 가까운 거리에서.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7. 프로그램 -->
+    <section class="section program reveal" aria-labelledby="program-title">
+      <h2 id="program-title" class="sec-title"><span>Program</span>프로그램</h2>
+      <!-- 곡 추가/수정: <li class="pg"> 블록 하나가 한 곡입니다 (번호·제목·편성은 항상 보이고, 소개는 눌러서 펼침) -->
+      <ol class="program__list stagger">
+        <li class="pg">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">I</span>
+              <span class="pg__head"><h3 class="pg__title en">Finding Myself Again</h3><span class="pg__inst">Piano Trio</span><span class="pg__cast"><span class="c"><i>바이올린</i>유중훈</span><span class="c"><i>첼로</i>김신석</span><span class="c"><i>피아노</i>박지은</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">먼 바다를 건너온 끝에, 다시 나에게로.</span>지난 시간의 기억과 상처를 품은 채 자신을 되찾아 가는 오디세우스의 마음속 항해. 세 악기가 그 긴 여정을 함께 걸어갑니다.</p>
+          </details>
+        </li>
+        <li class="pg">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">II</span>
+              <span class="pg__head"><h3 class="pg__title">파놉티콘</h3><span class="pg__inst">Trumpet Solo</span><span class="pg__cast"><span class="c"><i>트럼펫</i>안성준</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">모든 것을 보는 탑, 보이지 않는 시선.</span>파놉티콘에서 출발해, 지켜보는 자와 지켜보이는 자 사이의 흐릿한 경계와 그 아래 흐르는 권력의 긴장을 트럼펫 한 대의 숨결로 그려냅니다.</p>
+          </details>
+        </li>
+        <li class="pg">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">III</span>
+              <span class="pg__head"><h3 class="pg__title">달</h3><span class="pg__inst">Tenor, Piano <span class="pg__lyric">작사 정수인</span></span><span class="pg__cast"><span class="c"><i>테너</i>김동우</span><span class="c"><i>피아노</i>조재량</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">멀리 있어도 같은 달을 올려다보던 밤.</span>독립운동가 신채호의 삶을 배경으로, 그리운 아내를 향한 애틋함과 조국의 독립을 향한 간절한 염원을 달빛에 실어 노래합니다.</p>
+          </details>
+        </li>
+        <li class="pg">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">IV</span>
+              <span class="pg__head"><h3 class="pg__title">나전칠기</h3><span class="pg__inst">Piano Solo</span><span class="pg__cast"><span class="c"><i>피아노</i>최상미</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">켜켜이 쌓인 시간, 그 위에 머문 자개의 빛.</span>나전칠기가 만들어지는 과정을 따라, 겹겹이 쌓여 가는 시간의 흔적과 자개가 피워 내는 빛의 아름다움을 피아노의 울림으로 옮겼습니다.</p>
+          </details>
+        </li>
+        <li class="pg is-feature">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">V</span>
+              <span class="pg__head"><h3 class="pg__title en">Piscinas das Marés</h3><span class="pg__inst">String Quartet <span class="tag">with Visual Art · 임채은</span></span><span class="pg__cast pg__cast--quad"><span class="c"><i>바이올린 I</i>하정화</span><span class="c"><i>바이올린 II</i>김수지</span><span class="c"><i>비올라</i>황정은</span><span class="c"><i>첼로</i>박수미</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">바위와 콘크리트 사이로 바다가 숨 쉬는 곳.</span>건축가 알바로 시자가 빚은 바닷가 수영장에서, 쉼 없이 밀려오고 물러나는 바다와 자연과 인공의 경계에 피어나는 아름다움을 네 대의 현악기가 다채로운 활놀림과 음색으로 그려냅니다.</p>
+          </details>
+        </li>
+        <li class="pg">
+          <details class="pg__fold">
+            <summary>
+              <span class="no">VI</span>
+              <span class="pg__head"><h3 class="pg__title">눈맞춤</h3><span class="pg__inst">Tenor, Piano <span class="pg__lyric">작사 이원희</span></span><span class="pg__cast"><span class="c"><i>테너</i>김동우</span><span class="c"><i>피아노</i>조재량</span></span></span>
+            </summary>
+            <p class="pg__desc"><span class="pg__verse">마주친 눈빛, 마음이 먼저 말을 건넵니다.</span>사랑하는 사람과 눈을 맞출 때의 설렘, 곁에 머물고 싶은 마음, 그리고 조용히 깊어 가는 그리움을 노래합니다.</p>
+          </details>
+        </li>
+      </ol>
+      <p class="note">곡명을 누르면 곡 소개를 볼 수 있습니다.</p>
+    </section>
+
+    <!-- 8. 연주자 -->
+    <!-- 편성 1줄 = <details class="crew__row"> 1개.
+         연주자 추가: summary 안 <span class="m"> 1개 + 아래 crew__bio 안 <div> 1개를 복사해 이름·악기·약력만 수정
+         사진이 있으면: <div class="has-ph"> 로 바꾸고 맨 앞에 <img class="ph" src="assets/img/performer-….jpg"> 추가 (왼쪽 빈칸에 표시, 누르면 크게 보기) -->
+    <section class="section performers reveal" aria-labelledby="performers-title">
+      <h2 id="performers-title" class="sec-title"><span>Performers</span>연주자</h2>
+
+      <div class="crew stagger">
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Piano Trio</span>
+            <span class="crew__names">
+              <span class="m"><b>유중훈</b><i>Violin</i></span>
+              <span class="m"><b>김신석</b><i>Cello</i></span>
+              <span class="m"><b>박지은</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div class="has-ph"><img class="ph" src="assets/img/performer-yu-junghoon-v2.jpg" width="544" height="680" alt="유중훈" loading="lazy" /><p class="who">유중훈 <i>Violin</i></p><p>충남대학교 졸업 · 한음, 대전음협 콩쿠르 1위 · 대전 예술의전당 베토벤 아벤트, M프로젝트 ‘공존’ 출연 · Djac청년오케스트라 단원, 청주시립교향악단 비상임단원, 대전아트필 오케스트라 단원 역임</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-kim-sinseok-v2.jpg" width="544" height="833" alt="김신석" loading="lazy" /><p class="who">김신석 <i>Cello</i></p><p>대전예술고등학교, 충남대학교 관현악과 졸업 · 청주CBS·대전음협·대전가톨릭·하이든 국제콩쿠르 입상 · 현) 안디무지크 필하모니아 단원, 엔클레프 앙상블, 레브앙상블, 블레싱앙상블, 벨코첼리 멤버</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-park-jieun-v2.jpg" width="544" height="800" alt="박지은" loading="lazy" /><p class="who">박지은 <i>Piano</i></p><p>대전예술고등학교, 충남대학교 음악과 실기 수석 졸업 및 석사 졸업 · 연세대학교 음악대학 피아노과 박사과정 수료 (졸업 예정) · 이탈리아 Firenze Centro Studi Musica e Arte 최고 연주자 및 음악코치 Diploma · Beethoven International Music Competition UK 심사위원 만장일치 1위 및 특별상 수상 · 현) 대전예술고·충북예술고 영재원 출강, 충남대학교 오페라 음악코치</p></div>
+          </div>
+        </details>
+
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Trumpet</span>
+            <span class="crew__names">
+              <span class="m"><b>안성준</b><i>Trumpet</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div class="has-ph"><img class="ph" src="assets/img/performer-ahn-seongjun.jpg" width="544" height="815" alt="안성준" loading="lazy" /><p class="who">안성준 <i>Trumpet</i></p><p>충북예술고등학교 음악과, 충남대학교 관현악과 졸업 · AMPA Conducting 수료 · 충남대학교 관악 정기연주회, Sydney Korean Wind Orchestra, 성남 국제 청소년 윈드 페스티벌, 제주 국제 관악제 축하연주 협연 · 테이스트 브라스 앙상블 리더, 컬러스 트럼펫 앙상블 단원</p></div>
+          </div>
+        </details>
+
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Tenor &amp; Piano</span>
+            <span class="crew__names">
+              <span class="m"><b>김동우</b><i>Tenor</i></span>
+              <span class="m"><b>조재량</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div class="has-ph"><img class="ph" src="assets/img/performer-kim-dongwoo.jpg" width="544" height="816" alt="김동우" loading="lazy" /><p class="who">김동우 <i>Tenor</i></p><p>충남대학교 예술대학 음악과 졸업 · 청주시립교향악단, 청주시립국악단, 충북도립교향악단 등 다수 협연 · 오페라 〈세빌리아의 이발사〉 〈돈조반니〉 〈라보엠〉 주·조역 출연 · 뮤지컬 〈꽃신〉 출연 · 현) 청주시립합창단 차석단원, 더테너즈 멤버, Ottimo Ensemble 멤버</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-jo-jaeryang.jpg" width="544" height="588" alt="조재량" loading="lazy" /><p class="who">조재량 <i>Piano</i></p><p>단국대학교 음악대학 기악과 졸업 · 성신여자대학교 대학원 반주학과 석사 졸업 · 예술의전당, 세종문화회관 등 다수의 공연장에서 독창회, 독주회 반주 · 조재량 반주리사이틀 (2022, 2026 수원문화재단 형형색색 문화예술사업 지원) · 작곡가 이원희 창작곡 ‘달’ 포함 다수의 앨범 녹음 참여 · 가톨릭대학교 성악과 실기 반주자 · 고운나래합창단, 여정하모니, HIMC 반주자</p></div>
+          </div>
+        </details>
+
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">Piano</span>
+            <span class="crew__names">
+              <span class="m"><b>최상미</b><i>Piano</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div class="has-ph"><img class="ph" src="assets/img/performer-choi-sangmi.jpg" width="544" height="816" alt="최상미" loading="lazy" /><p class="who">최상미 <i>Piano</i></p><p>독일 칼스루에 국립음대 피아노 연주학 및 교육학 학사 최고만점(mit Auszeichnung) 졸업 · 독일 칼스루에 국립음대 피아노 연주학, 피아노 현대음악, 음악코치, 고음악 건반악기, 쳄발로 현대음악 석사 졸업 · 독일 프란츠 리스트 바이마르 국립음대 쳄발로 최고연주자과정 Konzertexamen 최고만점(mit Auszeichnung) 졸업 · 한국음악협회 콩쿠르 2위, 독일 C. Bechstein Hochschulwettbewerb NMZ(Neue Musik Zeitung) 특별상 수상, Kulturfonds Baden 콩쿠르 1위, 국제콩쿠르 “Prix Annelie de Man” 암스테르담 하프시코드 현대음악 2위 · 독일 Bach Biennale Weimar에서 다수 솔로연주와 바로크앙상블과 협연, 독일 Altenburg 국립극장 바로크 앙상블, 국내에서는 TPSO앙상블과 광주예술의전당 그랜드 오케스트라 위크에 바소콘티누 솔리스트로 연주 등 독일·한국 다수의 유럽음악제 및 현대음악 프로젝트 참여 · 현) 한국하프시코드협회 이사 및 전문연주자</p></div>
+          </div>
+        </details>
+
+        <details class="crew__row">
+          <summary>
+            <span class="crew__ens">String Quartet</span>
+            <span class="crew__names">
+              <span class="m"><b>하정화</b><i>Violin I</i></span>
+              <span class="m"><b>김수지</b><i>Violin II</i></span>
+              <span class="m"><b>황정은</b><i>Viola</i></span>
+              <span class="m"><b>박수미</b><i>Cello</i></span>
+            </span>
+          </summary>
+          <div class="crew__bio">
+            <div class="has-ph"><img class="ph" src="assets/img/performer-ha-jeonghwa.jpg" width="544" height="816" alt="하정화" loading="lazy" /><p class="who">하정화 <i>Violin I</i></p><p>한양대학교 졸업 · 한경필하모닉, 심포니송 단원 역임 · 현) 앙상블 자연의소리, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-kim-suji.jpg" width="544" height="680" alt="김수지" loading="lazy" /><p class="who">김수지 <i>Violin II</i></p><p>충남예술고등학교, 충남대학교 예술대학 관현악과 졸업 · 성신여자대학교 일반대학원 음악학과 석사 졸업 · 서울대학교 평생교육원 음악교육 전문 지도자과정 이수 · 충남대학교 현악 정기연주회, 여의도 영산아트홀 종교개혁 100주년 기념, 당진문예의전당 아산시향 작곡가 탐구 ‘비발디’, 충남도청 문예회관 도솔앙상블 정기연주회 협연 · 성신여자대학교 일반대학원 실기우수자 연주회 참가 · 현) 에제르 아트홀, 에제르 앙상블 대표 · 경희대학교 테크노경영대학원 글로벌경영학과 문화예술경영 석사 재학 중</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-hwang-jeongeun.jpg" width="544" height="816" alt="황정은" loading="lazy" /><p class="who">황정은 <i>Viola</i></p><p>한양대학교 음악대학 졸업 · 서울 바로크 합주단 콩쿠르 입상 · 대관령 국제 음악제 현악사중주 부문 전액 장학생 · 금호 영체임버 금호아트홀 연주 · 천안예술의전당 페스티벌 오케스트라 비올라 수석 역임 · 현) 에제르앙상블, 이리스콰텟, 대전아트필하모닉 오케스트라 단원</p></div>
+            <div class="has-ph"><img class="ph" src="assets/img/performer-park-sumi.jpg" width="544" height="618" alt="박수미" loading="lazy" /><p class="who">박수미 <i>Cello</i></p><p>한양대학교 졸업 · 한국예술종합학교 전문사 오케스트라과정 수료 · 전주시립교향악단 비상임 역임 · 대전예고 출강 · 현) DCMF 오케스트라 단원, 앙상블 이리스콰텟 멤버</p></div>
+          </div>
+        </details>
+      </div>
+      <p class="note">편성을 누르면 연주자 약력을, 사진을 누르면 크게 볼 수 있습니다.</p>
+    </section>
+
+    <!-- 8-1. 일시 -->
+    <section class="section when reveal" id="when" aria-labelledby="when-title">
+      <h2 id="when-title" class="sec-title"><span>Date</span>공연 일시</h2>
+
+      <p class="datetime">
+        <span class="num">2026. 12. 10</span>
+        <em>Thu.</em>
+        <span class="num">19:30</span>
+      </p>
+      <p class="datetime-ko">2026년 12월 10일 목요일 오후 7시 30분</p>
+
+      <div class="calendar" aria-label="2026년 12월 달력">
+        <p class="calendar__month">December <span>2026</span></p>
+        <div class="calendar__grid" id="calendar"></div>
+      </div>
+
+      <div class="countdown" id="countdown" aria-live="off">
+        <div><b data-cd="d">00</b><span>Days</span></div>
+        <div><b data-cd="h">00</b><span>Hours</span></div>
+        <div><b data-cd="m">00</b><span>Min</span></div>
+        <div><b data-cd="s">00</b><span>Sec</span></div>
+      </div>
+      <p class="dday" id="dday"></p>
+
+      <button class="btn btn--ghost" type="button" id="btn-ics">캘린더에 저장</button>
+    </section>
+
+    <!-- 9. 오시는 길 -->
+    <section class="section where reveal" id="where" aria-labelledby="where-title">
+      <h2 id="where-title" class="sec-title"><span>Venue</span>오시는 길</h2>
+      <p class="venue">엘클래식 <span class="venue-en">L Classic</span></p>
+      <p class="venue-hall">100석 하우스 콘서트홀 · STEINWAY &amp; SONS</p>
+      <p class="venue-addr">대전 유성구 테크노중앙로 50<br />디티비안S C동 4층</p>
+      <p class="venue-sub">(지번) 대전 유성구 관평동 940 · <a href="tel:0429332050">042-933-2050</a></p>
+
+      <div class="map-links">
+        <a class="btn" href="https://m.place.naver.com/place/1614128429/home" target="_blank" rel="noopener">네이버 지도</a>
+        <a class="btn" href="https://map.kakao.com/link/map/%EC%97%98%ED%81%B4%EB%9E%98%EC%8B%9D,36.4258751,127.3906524" target="_blank" rel="noopener">카카오맵</a>
+        <!-- T맵: 앱으로 길안내 (앱이 없으면 js/main.js?v=63d8251 에서 스토어로 이동) -->
+        <a class="btn" id="btn-tmap" href="tmap://route?rGoName=%EC%97%98%ED%81%B4%EB%9E%98%EC%8B%9D&amp;rGoX=127.3906524&amp;rGoY=36.4258751">T맵</a>
+        <button class="btn btn--ghost" type="button" id="btn-addr" data-addr="대전 유성구 테크노중앙로 50 디티비안S C동 4층 엘클래식">주소 복사</button>
+      </div>
+
+      <dl class="directions stagger">
+        <div>
+          <dt>주차</dt>
+          <dd>건물 지하 1층 ~ 지하 4층 주차장 이용</dd>
+        </div>
+        <div>
+          <dt>버스</dt>
+          <dd>간선 301 · 704 · 802</dd>
+        </div>
+        <div>
+          <dt>자가용</dt>
+          <dd>북대전IC → 북대전네거리에서 테크노밸리 방면 우회전 → 대덕대로 1.4km 직진 → 미래로네거리에서 대덕연구개발특구 방면 우회전 → 테크노중앙로 490m 직진</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 10. 맺음 / 공유 -->
+    <section class="section closing reveal" aria-label="맺음말과 공유">
+      <p class="closing__line">낯섦과 익숙함이 만나는 그 밤,<br />엘클래식에서<br />당신을 기다리겠습니다.</p>
+      <div class="share__btns">
+        <button class="btn" type="button" id="btn-share">초대장 공유하기</button>
+        <button class="btn btn--ghost" type="button" id="btn-copy">링크 복사</button>
+      </div>
+    </section>
+
+    <!-- 11. 에필로그 : 나눔 — 원본 이미지 그대로 사용 (원본: images/1_공연/에필로그_나눔(남김말).png → 웹용 assets/img/epilogue-nanum.jpg)
+         이미지를 바꿀 때는 새 파일명으로 넣고 아래 src 를 바꿉니다 (같은 이름이면 휴대폰 캐시에 옛 그림이 남을 수 있음) -->
+    <section class="section epilogue reveal" aria-label="에필로그 — 새로운 음악과 함께하는 나눔">
+      <figure class="epi__figure">
+        <img src="assets/img/epilogue-nanum.jpg" width="665" height="945" loading="lazy"
+             alt="EPILOGUE — 새로운 음악과 함께하는 나눔. “새로운 음악을 만나는 경험이, 누군가에게는 희망을 전하는 나눔이 됩니다.” 본 공연의 수익금 전액은 한국해비타트를 통해 독립운동가 후손들을 위한 지원에 기부됩니다. 음악이 전하는 특별한 경험과 감동을 넘어, 뜻깊은 나눔의 가치까지 함께할 수 있도록 여러분의 따뜻한 관심과 동참을 바랍니다. 작곡가 이원희" />
+      </figure>
+    </section>
+
+    <footer class="footer">
+      <p class="footer__title">212<em>Hz</em></p>
+      <p>작곡가 이원희 작품발표회</p>
+      <p class="footer__copy"><small>© 2026 Lee Wonhee · 212Hz. All rights reserved.</small></p>
+    </footer>
+  </main>
+
+  <!-- 하단 고정 바 -->
+  <nav class="dock" id="dock" aria-label="빠른 안내">
+    <a class="dock__info" href="#when">
+      <b>12.10 THU 19:30</b>
+      <span>대전 엘클래식</span>
+    </a>
+    <a class="dock__btn" href="#where">오시는 길</a>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js?v=63d8251" defer></script>
+</body>
+</html>
