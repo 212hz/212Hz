@@ -1527,6 +1527,16 @@ body.is-zoom { overflow: hidden; }
   border-top: 1px solid rgba(228, 233, 242, 0.1);
   font-size: 0.84rem;
 }
+/* 예정 개인전 (프로필 맨 아래) */
+.profile__next {
+  margin-top: 16px;
+  padding-top: 2px;
+  border-top: 1px solid rgba(228, 233, 242, 0.1);
+}
+.profile__next-title { margin: 0 0 4px; font-weight: 600; color: #fff; }
+.profile__dates li { display: flex; flex-wrap: wrap; column-gap: 10px; }
+.profile__dates .d { flex: none; font-family: var(--serif-en); font-size: 1.02em; color: var(--slate-300); }
+.profile__dates small { color: var(--slate-300); }
 
 /* =========================================================
    COLLABORATION (시각예술 — 보조 비중)
