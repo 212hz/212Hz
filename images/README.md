@@ -25,9 +25,9 @@
 | `1_공연/에필로그_나눔(남김말).png` | `epilogue-nanum.jpg` | |
 | `2_작곡가/이원희_작곡가.jpg` | `composer-lee-wonhee.jpg` | |
 | `3_시각예술/임채은_시각예술.png` | `artist-lim-chaeeun.jpg` | |
-| `4_연주자/프로필/1_피아노트리오_…png` | `performer-yu-junghoon-hq.jpg` | `--crop 61,126,197,292` ※ |
-| 〃 | `performer-kim-sinseok-hq.jpg` | `--crop 61,372,197,529` ※ |
-| 〃 | `performer-park-jieun-hq.jpg` | `--crop 61,609,197,768` ※ |
+| `4_연주자/사진/유중훈_바이올린.jpg` | `performer-yu-junghoon-v2.jpg` | `--crop 100,0,1223,1404` (정사각형 → 세로) |
+| `4_연주자/사진/김신석_첼로.jpg` | `performer-kim-sinseok-v2.jpg` | `--bright 0.85` (어두운 사진) |
+| `4_연주자/사진/박지은_피아노.jpg` | `performer-park-jieun-v2.jpg` | |
 | `4_연주자/사진/최상미_피아노.jpg` | `performer-choi-sangmi.jpg` | `--bright 0.97 --warm 1.015` |
 | `4_연주자/사진/안성준_트럼펫.jpg` | `performer-ahn-seongjun.jpg` | `--bright 0.98 --warm 1.0` |
 | `4_연주자/사진/김동우_테너.jpg` | `performer-kim-dongwoo.jpg` | |
@@ -37,5 +37,4 @@
 | `4_연주자/사진/황정은_비올라.jpg` | `performer-hwang-jeongeun.jpg` | `--crop 600,0,3000,3600` (상반신) |
 | `4_연주자/사진/박수미_첼로.jpg` | `performer-park-sumi.jpg` | `--crop 180,0,790,693` (가로 사진 → 세로) |
 
-※ 피아노 트리오 3인은 원본 사진이 없어 프로필 이미지에서 잘라 쓴 것입니다(화질 한계).
-  `tools/photo.py` 이전의 보정 설정이라 다시 만들면 약간 다를 수 있습니다. 원본 사진을 받으면 `사진/` 에 넣고 교체하세요.
+`-v2` : 같은 이름(`performer-<이름>.jpg`)으로 예전에 저화질 사진이 배포된 적이 있어, 캐시를 피하려고 붙인 이름입니다.
