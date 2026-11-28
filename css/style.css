@@ -1608,15 +1608,15 @@ body.is-zoom { overflow: hidden; }
 }
 .more summary {
   position: relative;
-  padding: 14px 2px;
+  padding: 14px 104px 14px 2px;
   list-style: none;
   font-size: 0.88rem;
   color: var(--silver);
   cursor: pointer;
 }
 .more summary::-webkit-details-marker { display: none; }
-/* 펼치기 단추: 연주자와 같게 제목 아래 왼쪽 [약력 보기 ▾] / [노트 보기 ▾] → 펼치면 [접기 ▴] */
-.more summary::after { content: "펼치기 ▾"; display: block; width: fit-content; margin-top: 8px; }
+/* 펼치기 단추: 오른쪽 [약력 보기 ▾] / [노트 보기 ▾] → 펼치면 [접기 ▴] (문구는 연주자와 같게) */
+.more summary::after { content: "펼치기 ▾"; position: absolute; right: 2px; top: 50%; transform: translateY(-50%); }
 .more--profile summary::after { content: "약력 보기 ▾"; }
 .more--note summary::after { content: "노트 보기 ▾"; }
 .more[open] summary::after { content: "접기 ▴"; }
