@@ -4,11 +4,11 @@
   python tools/photo.py <원본이미지> <영문이름> [옵션]
 
   예) 원본 사진 파일 그대로:
-      python tools/photo.py images/홍길동.jpg hong-gildong
+      python tools/photo.py images/4_연주자/사진/홍길동_피아노.jpg hong-gildong
   예) 여러 명이 들어간 프로필 이미지에서 사진 부분만 잘라서 (좌표 = 왼쪽,위,오른쪽,아래 픽셀):
-      python tools/photo.py images/연주자프로필_피아노트리오.png park-jieun --crop 61,609,197,768
+      python tools/photo.py images/4_연주자/프로필/1_피아노트리오_유중훈_김신석_박지은.png park-jieun --crop 61,609,197,768
   예) 어두운 사진은 밝게:
-      python tools/photo.py images/김신석.jpg kim-sinseok --bright 0.78
+      python tools/photo.py images/4_연주자/사진/김신석_첼로.jpg kim-sinseok --bright 0.78
 
 옵션:
   --crop x0,y0,x1,y1   잘라낼 영역 (생략하면 전체)

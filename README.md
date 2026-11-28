@@ -17,7 +17,7 @@ tools/shot.mjs              휴대폰 크기 화면 캡처 (작업 확인용, Ed
 tools/photo.py              연주자 사진 자르기·화질 보정 → assets/img/performer-*.jpg
 CLAUDE.md                   Claude 작업 지침 (캡처 후 프로세스 정리 · 배포 계정)
 assets/img/                 웹용 이미지 (poster-212.jpg, composer-*.jpg, artist-*.jpg, performer-*.jpg)
-images/                     원본 이미지 (배포되지 않음)
+images/                     원본 이미지 (배포되지 않음 · 분류·원본↔웹용 대응은 images/README.md)
 .github/workflows/deploy.yml  자동 배포 (push → GitHub Pages, 일시 오류 시 1회 재시도)
 ```
 
@@ -46,7 +46,7 @@ images/                     원본 이미지 (배포되지 않음)
   새 편성은 `<details class="crew__row">` 블록을 통째로 복사합니다.
   프로그램의 곡별 연주자 줄(`<span class="pg__cast">`)도 함께 고칩니다.
 - **연주자 사진 추가** (약력 왼쪽 빈칸에 표시, 누르면 화면 가운데에 크게 보기):
-  1. 원본을 `images/`에 넣고 `python tools/photo.py images/<원본> <영문이름>` 실행
+  1. 원본을 `images/4_연주자/사진/이름_악기.jpg` 로 넣고 `python tools/photo.py images/4_연주자/사진/<원본> <영문이름>` 실행
      → `assets/img/performer-<영문이름>.jpg` 생성(작은 사진은 고품질 확대, 피부·밝기 보정).
      여러 명이 든 프로필 이미지면 `--crop 왼쪽,위,오른쪽,아래`, 어두운 사진이면 `--bright 0.8`.
   2. 실행 결과에 나오는 `<img class="ph" …>` 를 그 연주자 약력 `<div>` 맨 앞에 넣고 `<div class="has-ph">` 로 바꿉니다.
