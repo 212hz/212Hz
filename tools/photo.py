@@ -14,13 +14,14 @@
   --crop x0,y0,x1,y1   잘라낼 영역 (생략하면 전체)
   --bright 값          밝기 감마 (기본 0.94 · 작을수록 밝게 · 어두운 사진 0.75~0.85)
   --warm 값            혈색(따뜻한 톤) (기본 1.02 · 1.0 = 그대로)
+  --smooth 값          피부 보정 0~1 (기본: 작은 사진 0.45, 큰 원본 0.15)
   --out 경로           저장 경로 (기본 assets/img/performer-<영문이름>.jpg)
   --force              같은 이름 파일이 있어도 덮어쓰기
 
 처리 내용:
   - 작은 사진: 폭 544px 이상이 되도록 Lanczos(고품질 큐빅 계열 보간)로 확대
     큰 사진: 폭 544px 로 축소 (휴대폰 확대 보기에 충분한 크기, 용량 절약)
-  - 윤곽(눈·머리선)은 살리고 피부처럼 밋밋한 부분만 살짝 부드럽게
+  - 윤곽(눈·머리선)은 살리고 피부처럼 밋밋한 부분만 살짝 부드럽게 (큰 원본은 아주 약하게)
   - 밝기·대비·채도·혈색 보정 → 마지막에 약한 선명화(테두리 흰 띠가 안 생기는 강도)
   - 끝나면 index.html 에 붙여 넣을 <img> 한 줄을 출력합니다.
 
@@ -51,19 +52,23 @@ def warm(img, k):
     return Image.merge("RGB", (r, g, b))
 
 
-def enhance(src, bright, warmth):
-    if src.width < TARGET_W:
+def enhance(src, bright, warmth, smooth=None):
+    small = src.width < TARGET_W
+    if small:
         k = math.ceil(TARGET_W / src.width)
         img = src.resize((src.width * k, src.height * k), Image.LANCZOS)
     else:
         img = src.resize((TARGET_W, round(src.height * TARGET_W / src.width)), Image.LANCZOS)
+    # 피부 보정 강도: 작은 사진(확대)은 뭉개진 계단을 덮도록 0.45, 큰 원본(전문 촬영본)은 디테일을 살려 0.15
+    if smooth is None:
+        smooth = 0.45 if small else 0.15
 
     # 피부 보정: 윤곽이 약한 곳만 흐린 본과 섞음 (윤곽 보존)
-    soft = img.filter(ImageFilter.GaussianBlur(2.2))
+    soft = img.filter(ImageFilter.GaussianBlur(2.2 if small else 1.2))
     edge = (img.convert("L").filter(ImageFilter.FIND_EDGES)
             .filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(2))
             .point(lambda v: min(255, v * 9)))
-    mask = ImageOps.invert(edge).point(lambda v: int(v * 0.45))
+    mask = ImageOps.invert(edge).point(lambda v: int(v * smooth))
     img = Image.composite(soft, img, mask)
 
     img = gamma(img, bright)
@@ -71,7 +76,7 @@ def enhance(src, bright, warmth):
     img = ImageEnhance.Contrast(img).enhance(1.06)
     img = ImageEnhance.Color(img).enhance(1.06)
     img = warm(img, warmth)
-    img = img.filter(ImageFilter.UnsharpMask(1.4, 45, 3))
+    img = img.filter(ImageFilter.UnsharpMask(1.4, 45, 3) if small else ImageFilter.UnsharpMask(0.8, 40, 2))
 
     if img.width > TARGET_W * 1.5:  # 확대 배수가 커서 너무 크면 맞춰 줄임
         img = img.resize((TARGET_W, round(img.height * TARGET_W / img.width)), Image.LANCZOS)
@@ -85,6 +90,7 @@ def main():
     ap.add_argument("--crop")
     ap.add_argument("--bright", type=float, default=0.94)
     ap.add_argument("--warm", type=float, default=1.02)
+    ap.add_argument("--smooth", type=float)
     ap.add_argument("--out")
     ap.add_argument("--force", action="store_true")
     a = ap.parse_args()
@@ -97,7 +103,7 @@ def main():
     if out.exists() and not a.force:
         sys.exit(f"이미 있는 파일입니다: {out}\n  새 이름(예: {a.slug}-v2)을 쓰거나 --force 를 붙이세요.")
 
-    img = enhance(src, a.bright, a.warm)
+    img = enhance(src, a.bright, a.warm, a.smooth)
     out.parent.mkdir(parents=True, exist_ok=True)
     img.save(out, quality=90, optimize=True, progressive=True, subsampling=0)
 
